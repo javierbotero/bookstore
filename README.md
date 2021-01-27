@@ -6,8 +6,6 @@ This is a bookstore fictional app where books are organized and manage based on 
 
 [See the Book Store Online App](https://javier-bookstore.herokuapp.com/)
 
-![calculator app]()
-
 ## Built With
 
 - React
