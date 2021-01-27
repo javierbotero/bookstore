@@ -1,5 +1,12 @@
 import React from 'react';
+import BookList from './bookslist';
+import BooksForm from './booksform';
 
-const App = () => <h4>Coming soon, a Bookstore app here!</h4>;
+const App = () => (
+  <div>
+    <BookList />
+    <BooksForm />
+  </div>
+);
 
 export default App;
