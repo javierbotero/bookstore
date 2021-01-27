@@ -4,7 +4,7 @@ This is a bookstore fictional app where books are organized and manage based on 
 
 ## Live Preview
 
-[See the Book Store Online App]()
+[See the Book Store Online App](https://javier-bookstore.herokuapp.com/)
 
 ![calculator app]()
 
