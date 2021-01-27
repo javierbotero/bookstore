@@ -10,10 +10,14 @@ const addBook = book => {
   };
 };
 
-const removeBook = index => ({
-  type: REMOVE_BOOK,
-  payload: { index },
-});
+const removeBook = (book, books) => {
+  const newBooks = books.filter(item => book !== item);
+
+  return {
+    type: REMOVE_BOOK,
+    payload: { newBooks },
+  };
+};
 
 export {
   addBook, removeBook, CREATE_BOOK, REMOVE_BOOK,
