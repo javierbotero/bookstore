@@ -1,5 +1,6 @@
 const CREATE_BOOK = 'CREATE_BOOK';
 const REMOVE_BOOK = 'REMOVE_BOOK';
+const SET_CATEGORY = 'SET_CATEGORY';
 
 const addBook = book => {
   const { title, category } = book;
@@ -19,6 +20,13 @@ const removeBook = (book, books) => {
   };
 };
 
+const setFilter = filter => ({
+  type: SET_CATEGORY,
+  payload: {
+    filter,
+  },
+});
+
 export {
-  addBook, removeBook, CREATE_BOOK, REMOVE_BOOK,
+  addBook, removeBook, setFilter, CREATE_BOOK, REMOVE_BOOK, SET_CATEGORY,
 };

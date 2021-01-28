@@ -1,18 +1,17 @@
-import { ADD_BOOK, REMOVE_BOOK } from '../actions/index';
+import { CREATE_BOOK, REMOVE_BOOK } from '../actions/index';
 
-const reducer = (state = [], action) => {
+const books = (state = [], action) => {
   switch (action.type) {
-    case ADD_BOOK:
+    case CREATE_BOOK:
       return [...state, {
         title: action.payload.title,
         category: action.payload.category,
       }];
     case REMOVE_BOOK:
-      state.splice(action.payload.index, 1);
-      return [...state];
+      return [...action.payload.newBooks];
     default:
       return state;
   }
 };
 
-export default reducer;
+export default books;

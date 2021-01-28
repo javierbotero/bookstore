@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { addBook } from '../actions/index';
+import { CATEGORIES } from '../constants/constants';
 
 const BooksForm = props => {
   const [state, setState] = useState({
@@ -9,7 +10,6 @@ const BooksForm = props => {
     category: '',
   });
   const { getBook } = props;
-  const categories = ['Action', 'Biography', 'History', 'Horror', 'Kids', 'Learning', 'Sci-Fi'];
   const setTitle = e => setState(e.target.value);
   const handleSubmit = e => {
     e.preventDefault();
@@ -21,7 +21,7 @@ const BooksForm = props => {
       <label htmlFor="categories">
         Choose a category:
         <select name="categories">
-          {categories.map(category => <option value={category}>{category}</option>)}
+          {CATEGORIES.map(category => <option value={category}>{category}</option>)}
         </select>
       </label>
       <button type="submit">Submit</button>

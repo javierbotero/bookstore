@@ -9,4 +9,6 @@ const FILTERS = {
   all: 'All',
 };
 
-export default FILTERS;
+const CATEGORIES = ['Action', 'Biography', 'History', 'Horror', 'Kids', 'Learning', 'Sci-Fi'];
+
+export { FILTERS, CATEGORIES };
