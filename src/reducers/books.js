@@ -1,6 +1,35 @@
 import { CREATE_BOOK, REMOVE_BOOK } from '../actions/index';
+import { FILTERS } from '../constants/constants';
 
-const books = (state = [], action) => {
+const myState = [
+  {
+    title: 'A Hundred Years of Solitude',
+    category: FILTERS.biography,
+    id: Math.round(Math.random() * 10000),
+  },
+  {
+    title: 'The Iliad',
+    category: FILTERS.history,
+    id: Math.round(Math.random() * 10000),
+  },
+  {
+    title: 'The Shining',
+    category: FILTERS.horror,
+    id: Math.round(Math.random() * 10000),
+  },
+  {
+    title: 'The Little Prince',
+    category: FILTERS.kids,
+    id: Math.round(Math.random() * 10000),
+  },
+  {
+    title: 'The Invation',
+    category: FILTERS.scifi,
+    id: Math.round(Math.random() * 10000),
+  },
+];
+
+const books = (state = myState, action) => {
   switch (action.type) {
     case CREATE_BOOK:
       return [...state, {

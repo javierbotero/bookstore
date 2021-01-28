@@ -21,7 +21,7 @@ const BooksForm = props => {
       <label htmlFor="categories">
         Choose a category:
         <select name="categories">
-          {CATEGORIES.map(category => <option value={category}>{category}</option>)}
+          {CATEGORIES.map(category => <option key={category} value={category}>{category}</option>)}
         </select>
       </label>
       <button type="submit">Submit</button>

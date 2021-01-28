@@ -11,8 +11,9 @@ const addBook = book => {
   };
 };
 
-const removeBook = (book, books) => {
-  const newBooks = books.filter(item => book !== item);
+const removeBook = (index, books) => {
+  const newBooks = [...books];
+  newBooks.splice(index, 1);
 
   return {
     type: REMOVE_BOOK,
@@ -20,7 +21,7 @@ const removeBook = (book, books) => {
   };
 };
 
-const setFilter = filter => ({
+const setCategory = filter => ({
   type: SET_CATEGORY,
   payload: {
     filter,
@@ -28,5 +29,5 @@ const setFilter = filter => ({
 });
 
 export {
-  addBook, removeBook, setFilter, CREATE_BOOK, REMOVE_BOOK, SET_CATEGORY,
+  addBook, removeBook, setCategory, CREATE_BOOK, REMOVE_BOOK, SET_CATEGORY,
 };

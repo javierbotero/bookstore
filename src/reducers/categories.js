@@ -1,5 +1,5 @@
 import { SET_CATEGORY } from '../actions/index';
-import FILTERS from '../constants/constants';
+import { FILTERS } from '../constants/constants';
 
 const category = (state = FILTERS.all, action) => {
   switch (action.type) {

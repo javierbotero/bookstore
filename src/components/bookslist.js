@@ -1,33 +1,53 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { removeBook, setFilter } from '../actions';
+import { removeBook, setCategory } from '../actions';
 import Book from './book';
+import { CATEGORIES, FILTERS } from '../constants/constants';
 
 const BooksList = props => {
-  const { filter, setFilter } = useState()
-  const { filteredBooks, deleteBook } = props;
+  const { filteredBooks, deleteBook, filterBooks } = props;
+  const handleSelection = e => {
+    filterBooks(e.target.value);
+  };
   return (
-    <div>Set filter</div>
-    <table>
-      {filteredBooks.map(item => <Book book={item} delBook={deleteBook} />)}
-    </table>
+    <div>
+      <label htmlFor="categories">
+        Set filter
+        <select name="categories" onChange={handleSelection}>
+          {CATEGORIES.map(category => <option key={category} value={category}>{category}</option>)}
+        </select>
+      </label>
+      <table>
+        {filteredBooks.map(
+          (item, i) => <Book key={item} book={item} delBook={deleteBook} index={i} />,
+        )}
+      </table>
+    </div>
   );
 };
 
 BooksList.propTypes = {
-  books: PropTypes.arrayOf.isRequired,
+  filteredBooks: PropTypes.arrayOf.isRequired,
+  filterBooks: PropTypes.func.isRequired,
   deleteBook: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => {
   const { books, category } = state;
-  const filteredBooks = books.filter(book => book.category === category);
+  let filteredBooks;
+  if (category === FILTERS.all) {
+    filteredBooks = books;
+  } else {
+    filteredBooks = books.filter(book => book.category === category);
+  }
+  console.log(filteredBooks);
   return { filteredBooks, books };
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  deleteBook: book => dispatch(removeBook(book, ownProps.books)),
+  deleteBook: index => dispatch(removeBook(index, ownProps.books)),
+  filterBooks: category => dispatch(setCategory(category)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(BooksList);
