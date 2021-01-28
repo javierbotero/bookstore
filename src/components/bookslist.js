@@ -1,52 +1,69 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { removeBook, setCategory } from '../actions';
 import Book from './book';
-import { CATEGORIES, FILTERS } from '../constants/constants';
+import { FILTERS } from '../constants/constants';
+import Options from './options';
 
 const BooksList = props => {
-  const { filteredBooks, deleteBook, filterBooks } = props;
+  const {
+    deleteBook, filterBooks, category, books,
+  } = props;
   const handleSelection = e => {
     filterBooks(e.target.value);
+  };
+  const filteredBooks = () => {
+    const result = [];
+    if (category === FILTERS.all) {
+      books.forEach((item, i) => {
+        result.push(<Book key={item.id} book={item} delBook={() => deleteBook(i)} />);
+      });
+    } else {
+      books.forEach((item, i) => {
+        if (item.category === category) {
+          result.push(<Book key={item.id} book={item} delBook={() => deleteBook(i)} />);
+        }
+      });
+    }
+    return result;
   };
   return (
     <div>
       <label htmlFor="categories">
         Set filter
-        <select name="categories" onChange={handleSelection}>
-          {CATEGORIES.map(category => <option key={category} value={category}>{category}</option>)}
-        </select>
+        <Options categories={FILTERS} handleSelection={handleSelection} name="categories" />
       </label>
       <table>
-        {filteredBooks.map(
-          (item, i) => <Book key={item} book={item} delBook={deleteBook} index={i} />,
-        )}
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Category</th>
+            <th>Remove</th>
+          </tr>
+        </thead>
+        {filteredBooks()}
       </table>
     </div>
   );
 };
 
 BooksList.propTypes = {
-  filteredBooks: PropTypes.arrayOf.isRequired,
   filterBooks: PropTypes.func.isRequired,
   deleteBook: PropTypes.func.isRequired,
+  category: PropTypes.string.isRequired,
+  books: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 const mapStateToProps = state => {
   const { books, category } = state;
-  let filteredBooks;
-  if (category === FILTERS.all) {
-    filteredBooks = books;
-  } else {
-    filteredBooks = books.filter(book => book.category === category);
-  }
-  console.log(filteredBooks);
-  return { filteredBooks, books };
+  return { books, category };
 };
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
-  deleteBook: index => dispatch(removeBook(index, ownProps.books)),
+const mapDispatchToProps = dispatch => ({
+  deleteBook: index => dispatch(removeBook(index)),
   filterBooks: category => dispatch(setCategory(category)),
 });
 

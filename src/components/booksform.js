@@ -1,8 +1,10 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { addBook } from '../actions/index';
-import { CATEGORIES } from '../constants/constants';
+import { FILTERS } from '../constants/constants';
+import Options from './options';
 
 const BooksForm = props => {
   const [state, setState] = useState({
@@ -10,7 +12,8 @@ const BooksForm = props => {
     category: '',
   });
   const { getBook } = props;
-  const setTitle = e => setState(e.target.value);
+  const setTitle = e => setState({ ...state, title: e.target.value });
+  const setCategory = e => setState({ ...state, category: e.target.value });
   const handleSubmit = e => {
     e.preventDefault();
     getBook(state.title, state.category);
@@ -20,9 +23,7 @@ const BooksForm = props => {
       <input type="text" onChange={setTitle} pĺaceholder="Title Book" />
       <label htmlFor="categories">
         Choose a category:
-        <select name="categories">
-          {CATEGORIES.map(category => <option key={category} value={category}>{category}</option>)}
-        </select>
+        <Options categories={FILTERS} handleSelection={setCategory} creation name="categories" />
       </label>
       <button type="submit">Submit</button>
     </form>
@@ -37,4 +38,4 @@ const mapDispatchToProps = dispatch => ({
   getBook: (title, category) => dispatch(addBook(title, category)),
 });
 
-export default connect(mapDispatchToProps)(BooksForm);
+export default connect(null, mapDispatchToProps)(BooksForm);

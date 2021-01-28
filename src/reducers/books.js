@@ -35,6 +35,7 @@ const books = (state = myState, action) => {
       return [...state, {
         title: action.payload.title,
         category: action.payload.category,
+        id: action.payload.id,
       }];
     case REMOVE_BOOK:
       return [...action.payload.newBooks];
