@@ -2,7 +2,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 const CREATE_BOOK = 'CREATE_BOOK';
 const REMOVE_BOOK = 'REMOVE_BOOK';
-const SET_CATEGORY = 'SET_CATEGORY';
+const CHANGE_FILTER = 'CHANGE_FILTER';
 
 const addBook = (title, category) => {
   const id = uuidv4();
@@ -28,12 +28,12 @@ const removeBook = i => (dispatch, getState) => {
 };
 
 const setCategory = filter => ({
-  type: SET_CATEGORY,
+  type: CHANGE_FILTER,
   payload: {
     filter,
   },
 });
 
 export {
-  addBook, removeBook, setCategory, CREATE_BOOK, REMOVE_BOOK, SET_CATEGORY,
+  addBook, removeBook, setCategory, CREATE_BOOK, REMOVE_BOOK, CHANGE_FILTER,
 };

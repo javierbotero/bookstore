@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 import books from './books';
-import category from './categories';
+import category from './filter';
 
 const combined = combineReducers({ books, category });
 
