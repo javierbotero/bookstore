@@ -16,7 +16,6 @@ const BooksForm = props => {
   const setCategory = e => setState({ ...state, category: e.target.value });
   const handleSubmit = e => {
     e.preventDefault();
-    console.log(state.title, state.category);
     getBook(state.title, state.category);
   };
   return (

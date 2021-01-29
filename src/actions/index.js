@@ -4,7 +4,6 @@ const SET_CATEGORY = 'SET_CATEGORY';
 
 const addBook = (title, category) => {
   const id = Math.round(Math.random() * 10000);
-  console.log(title, category);
 
   return {
     type: CREATE_BOOK,
