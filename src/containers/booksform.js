@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { addBook } from '../actions/index';
 import { FILTERS } from '../constants/constants';
-import Options from './options';
+import Options from '../components/options';
 
 const BookForm = props => {
   const [state, setState] = useState({
@@ -12,18 +12,23 @@ const BookForm = props => {
     category: FILTERS.action,
   });
   const { getBook } = props;
-  const setTitle = e => setState({ ...state, title: e.target.value });
-  const setCategory = e => setState({ ...state, category: e.target.value });
+  const handleChange = (e, title = false) => {
+    if (title) {
+      setState({ ...state, title: e.target.value });
+    } else {
+      setState({ ...state, category: e.target.value });
+    }
+  };
   const handleSubmit = e => {
     e.preventDefault();
     getBook(state.title, state.category);
   };
   return (
     <form onSubmit={handleSubmit}>
-      <input type="text" onChange={setTitle} pĺaceholder="Title Book" />
+      <input type="text" onChange={e => handleChange(e, true)} pĺaceholder="Title Book" />
       <label htmlFor="categories">
         Choose a category:
-        <Options categories={FILTERS} handleSelection={setCategory} creation name="categories" value={state.category} />
+        <Options categories={FILTERS} handleSelectionCreation={handleChange} creation name="categories" value={state.category} />
       </label>
       <button type="submit">Submit</button>
     </form>
