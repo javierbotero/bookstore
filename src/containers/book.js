@@ -6,7 +6,7 @@ const Book = props => {
   const { book, delBook } = props;
   return (
     <tr>
-      <td>{book.id}</td>
+      <td>{book.id.slice(0, 7)}</td>
       <td>{book.title}</td>
       <td>{book.category}</td>
       <td onClick={book => delBook(book)} onKeyPress={book => delBook(book)}>Delete Book</td>

@@ -1,9 +1,11 @@
+import { v4 as uuidv4 } from 'uuid';
+
 const CREATE_BOOK = 'CREATE_BOOK';
 const REMOVE_BOOK = 'REMOVE_BOOK';
 const SET_CATEGORY = 'SET_CATEGORY';
 
 const addBook = (title, category) => {
-  const id = Math.round(Math.random() * 10000);
+  const id = uuidv4();
 
   return {
     type: CREATE_BOOK,

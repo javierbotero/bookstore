@@ -2,7 +2,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { removeBook, setCategory } from '../actions';
+import { removeBook, setCategory } from '../actions/index';
 import Book from './book';
 import { FILTERS } from '../constants/constants';
 import Options from './options';

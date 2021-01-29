@@ -3,36 +3,36 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, combineReducers } from 'redux';
 import thunk from 'redux-thunk';
-import App from './containers/App';
+import { v4 as uuidv4 } from 'uuid';
+import App, { CREATE_BOOK, REMOVE_BOOK } from './containers/App';
 import { FILTERS } from './constants/constants';
-import { CREATE_BOOK, REMOVE_BOOK } from './actions/index';
 import category from './reducers/categories';
 
 const initialState = [
   {
     title: 'A Hundred Years of Solitude',
     category: FILTERS.biography,
-    id: Math.round(Math.random() * 10000),
+    id: uuidv4(),
   },
   {
     title: 'The Iliad',
     category: FILTERS.history,
-    id: Math.round(Math.random() * 10000),
+    id: uuidv4(),
   },
   {
     title: 'The Shining',
     category: FILTERS.horror,
-    id: Math.round(Math.random() * 10000),
+    id: uuidv4(),
   },
   {
     title: 'The Little Prince',
     category: FILTERS.kids,
-    id: Math.round(Math.random() * 10000),
+    id: uuidv4(),
   },
   {
     title: 'The Invation',
     category: FILTERS.scifi,
-    id: Math.round(Math.random() * 10000),
+    id: uuidv4(),
   },
 ];
 
