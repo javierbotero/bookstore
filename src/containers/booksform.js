@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { addBook } from '../actions/index';
 import { FILTERS } from '../constants/constants';
-import Options from '../components/options';
+import CategoryFilter from '../components/categoryFilter';
 
 const BookForm = props => {
   const [state, setState] = useState({
@@ -28,7 +28,7 @@ const BookForm = props => {
       <input type="text" onChange={e => handleChange(e, true)} pĺaceholder="Title Book" />
       <label htmlFor="categories">
         Choose a category:
-        <Options categories={FILTERS} handleSelectionCreation={handleChange} creation name="categories" value={state.category} />
+        <CategoryFilter categories={FILTERS} handleSelectionCreation={handleChange} creation name="categories" value={state.category} />
       </label>
       <button type="submit">Submit</button>
     </form>

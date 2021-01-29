@@ -5,13 +5,13 @@ import PropTypes from 'prop-types';
 import { removeBook, setCategory } from '../actions/index';
 import Book from '../components/book';
 import { FILTERS } from '../constants/constants';
-import Options from '../components/options';
+import CategoryFilter from '../components/categoryFilter';
 
 const BooksList = props => {
   const {
     handleRemoveBook, filterBooks, category, books,
   } = props;
-  const handleSelection = e => {
+  const handleFilterChange = e => {
     filterBooks(e.target.value);
   };
   const filteredBooks = () => {
@@ -33,7 +33,7 @@ const BooksList = props => {
     <div>
       <label htmlFor="categories">
         Set filter
-        <Options categories={FILTERS} handleSelection={handleSelection} name="categories" value={category} />
+        <CategoryFilter categories={FILTERS} handleSelection={handleFilterChange} name="categories" value={category} />
       </label>
       <table>
         <thead>
