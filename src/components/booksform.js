@@ -9,13 +9,14 @@ import Options from './options';
 const BooksForm = props => {
   const [state, setState] = useState({
     title: '',
-    category: '',
+    category: FILTERS.action,
   });
   const { getBook } = props;
   const setTitle = e => setState({ ...state, title: e.target.value });
   const setCategory = e => setState({ ...state, category: e.target.value });
   const handleSubmit = e => {
     e.preventDefault();
+    console.log(state.title, state.category);
     getBook(state.title, state.category);
   };
   return (
@@ -23,7 +24,7 @@ const BooksForm = props => {
       <input type="text" onChange={setTitle} pĺaceholder="Title Book" />
       <label htmlFor="categories">
         Choose a category:
-        <Options categories={FILTERS} handleSelection={setCategory} creation name="categories" />
+        <Options categories={FILTERS} handleSelection={setCategory} creation name="categories" value={state.category} />
       </label>
       <button type="submit">Submit</button>
     </form>

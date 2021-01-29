@@ -2,8 +2,7 @@ const CREATE_BOOK = 'CREATE_BOOK';
 const REMOVE_BOOK = 'REMOVE_BOOK';
 const SET_CATEGORY = 'SET_CATEGORY';
 
-const addBook = book => {
-  const { title, category } = book;
+const addBook = (title, category) => {
   const id = Math.round(Math.random() * 10000);
   console.log(title, category);
 
