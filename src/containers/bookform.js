@@ -6,7 +6,7 @@ import { addBook } from '../actions/index';
 import { FILTERS } from '../constants/constants';
 import Options from './options';
 
-const BooksForm = props => {
+const BookForm = props => {
   const [state, setState] = useState({
     title: '',
     category: FILTERS.action,
@@ -30,7 +30,7 @@ const BooksForm = props => {
   );
 };
 
-BooksForm.propTypes = {
+BookForm.propTypes = {
   getBook: PropTypes.func.isRequired,
 };
 
@@ -38,4 +38,4 @@ const mapDispatchToProps = dispatch => ({
   getBook: (title, category) => dispatch(addBook(title, category)),
 });
 
-export default connect(null, mapDispatchToProps)(BooksForm);
+export default connect(null, mapDispatchToProps)(BookForm);
