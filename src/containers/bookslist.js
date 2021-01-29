@@ -44,7 +44,9 @@ const BooksList = props => {
             <th>Remove</th>
           </tr>
         </thead>
-        {filteredBooks()}
+        <tbody>
+          {filteredBooks()}
+        </tbody>
       </table>
     </div>
   );
