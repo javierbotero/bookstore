@@ -27,12 +27,11 @@ Options.propTypes = {
   handleSelection: PropTypes.func.isRequired,
   creation: PropTypes.bool,
   name: PropTypes.string.isRequired,
-  value: PropTypes.string,
+  value: PropTypes.string.isRequired,
 };
 
 Options.defaultProps = {
   creation: false,
-  value: FILTERS.all,
 };
 
 export default Options;

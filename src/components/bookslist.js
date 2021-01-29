@@ -33,7 +33,7 @@ const BooksList = props => {
     <div>
       <label htmlFor="categories">
         Set filter
-        <Options categories={FILTERS} handleSelection={handleSelection} name="categories" />
+        <Options categories={FILTERS} handleSelection={handleSelection} name="categories" value={category} />
       </label>
       <table>
         <thead>
