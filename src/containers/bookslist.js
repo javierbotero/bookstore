@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { removeBook, setCategory } from '../actions/index';
@@ -11,18 +11,23 @@ const BooksList = props => {
   const {
     handleRemoveBook, filterBooks, category, books,
   } = props;
+  const [localFilter, setLocalFilter] = useState(category);
   const handleFilterChange = e => {
-    filterBooks(e.target.value);
+    if (e.target.value !== 'All') {
+      filterBooks(e.target.value);
+    } else {
+      setLocalFilter(e.target.value);
+    }
   };
   const filteredBooks = () => {
     const result = [];
-    if (category === FILTERS.all) {
+    if (localFilter === FILTERS.all) {
       books.forEach((item, i) => {
         result.push(<Book key={item.id} book={item} delBook={() => handleRemoveBook(i)} />);
       });
     } else {
       books.forEach((item, i) => {
-        if (item.category === category) {
+        if (item.category === localFilter) {
           result.push(<Book key={item.id} book={item} delBook={() => handleRemoveBook(i)} />);
         }
       });
