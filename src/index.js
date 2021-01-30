@@ -5,6 +5,7 @@ import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import App from './containers/App';
 import combined from './reducers/index';
+import './assets/style.css';
 
 const store = createStore(combined, applyMiddleware(thunk));
 
