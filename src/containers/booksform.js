@@ -19,6 +19,10 @@ const BookForm = props => {
   const handleSubmit = e => {
     e.preventDefault();
     getBook(state.title, state.category);
+    setState({
+      title: '',
+      category: FILTERS.action,
+    });
   };
   return (
     <form onSubmit={handleSubmit}>
