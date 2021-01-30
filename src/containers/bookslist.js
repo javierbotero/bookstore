@@ -15,9 +15,8 @@ const BooksList = props => {
   const handleFilterChange = e => {
     if (e.target.value !== 'All') {
       filterBooks(e.target.value);
-    } else {
-      setLocalFilter(e.target.value);
     }
+    setLocalFilter(e.target.value);
   };
   const filteredBooks = () => {
     const result = [];
