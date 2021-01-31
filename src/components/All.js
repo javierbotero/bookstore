@@ -6,10 +6,8 @@ import { removeBook } from '../actions/index';
 
 const All = props => {
   const { books, delBook } = props;
-  console.log(books);
   const result = [];
   books.filter((book, i) => result.push(<Book delBook={() => delBook(i)} book={book} />));
-  console.log('returning in App, result: ', result);
   return (
     <table>
       <thead>
