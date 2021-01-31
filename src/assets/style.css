@@ -68,7 +68,7 @@ a {
 }
 
 .books a {
-  font-family: Montserrat;
+  font-family: 'Montserrat', sans-serif;
   margin: 0px 41px 0px 0;
   font-size: 13px;
   font-weight: normal;
@@ -81,7 +81,7 @@ a {
 
 .categories a {
   opacity: 0.5;
-  font-family: Montserrat;
+  font-family: 'Montserrat', sans-serif;
   margin: 0px 41px 0px 0;
   font-size: 13px;
   font-weight: normal;
