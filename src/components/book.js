@@ -15,7 +15,7 @@ const Book = props => {
 };
 
 Book.propTypes = {
-  book: PropTypes.shape.isRequired,
+  book: PropTypes.objectOf(PropTypes.string).isRequired,
   delBook: PropTypes.func.isRequired,
 };
 

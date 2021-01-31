@@ -3,13 +3,13 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { removeBook, setCategory } from '../actions/index';
-import Book from './book';
+import Book from '../components/book';
 import { FILTERS } from '../constants/constants';
-import Options from './options';
+import Options from '../components/options';
 
 const BooksList = props => {
   const {
-    deleteBook, filterBooks, category, books,
+    handleRemoveBook, filterBooks, category, books,
   } = props;
   const handleSelection = e => {
     filterBooks(e.target.value);
@@ -18,12 +18,12 @@ const BooksList = props => {
     const result = [];
     if (category === FILTERS.all) {
       books.forEach((item, i) => {
-        result.push(<Book key={item.id} book={item} delBook={() => deleteBook(i)} />);
+        result.push(<Book key={item.id} book={item} delBook={() => handleRemoveBook(i)} />);
       });
     } else {
       books.forEach((item, i) => {
         if (item.category === category) {
-          result.push(<Book key={item.id} book={item} delBook={() => deleteBook(i)} />);
+          result.push(<Book key={item.id} book={item} delBook={() => handleRemoveBook(i)} />);
         }
       });
     }
@@ -44,7 +44,9 @@ const BooksList = props => {
             <th>Remove</th>
           </tr>
         </thead>
-        {filteredBooks()}
+        <tbody>
+          {filteredBooks()}
+        </tbody>
       </table>
     </div>
   );
@@ -52,7 +54,7 @@ const BooksList = props => {
 
 BooksList.propTypes = {
   filterBooks: PropTypes.func.isRequired,
-  deleteBook: PropTypes.func.isRequired,
+  handleRemoveBook: PropTypes.func.isRequired,
   category: PropTypes.string.isRequired,
   books: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
@@ -63,7 +65,7 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  deleteBook: index => dispatch(removeBook(index)),
+  handleRemoveBook: index => dispatch(removeBook(index)),
   filterBooks: category => dispatch(setCategory(category)),
 });
 
