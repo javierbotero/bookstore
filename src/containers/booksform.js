@@ -29,11 +29,7 @@ const BookForm = props => {
       <input type="text" onChange={handleChange} pĺaceholder="Title Book" />
       <label htmlFor="categories">
         Choose a category:
-<<<<<<< HEAD
         <CategoryFilter categories={FILTERS} handleSelectionCreation={handleChange} creation name="categories" value={state.category} />
-=======
-        <Options categories={FILTERS} handleSelectionCreation={handleChange} creation name="category" value={state.category} />
->>>>>>> development
       </label>
       <button type="submit">Submit</button>
     </form>
