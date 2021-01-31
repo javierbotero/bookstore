@@ -35,13 +35,10 @@ const BooksList = props => {
   };
   return (
     <div>
-      <nav>
-        <h2 className="title">Bookstore CMS</h2>
-        <label htmlFor="categories">
-          Categories
-          <CategoryFilter categories={FILTERS} handleSelection={handleFilterChange} name="categories" value={category} />
-        </label>
-      </nav>
+      <label htmlFor="categories">
+        Categories
+        <CategoryFilter categories={FILTERS} handleSelection={handleFilterChange} name="categories" value={category} />
+      </label>
       <table>
         <thead>
           <tr>
