@@ -12,23 +12,28 @@ const BookForm = props => {
     category: FILTERS.action,
   });
   const { getBook } = props;
-  const handleChange = (e, title = false) => {
-    if (title) {
-      setState({ ...state, title: e.target.value });
-    } else {
-      setState({ ...state, category: e.target.value });
-    }
+  const handleChange = e => {
+    const { name, value } = e.target;
+    setState({ ...state, [name]: value });
   };
   const handleSubmit = e => {
     e.preventDefault();
     getBook(state.title, state.category);
+    setState({
+      title: '',
+      category: FILTERS.action,
+    });
   };
   return (
     <form onSubmit={handleSubmit}>
-      <input type="text" onChange={e => handleChange(e, true)} pĺaceholder="Title Book" />
+      <input type="text" onChange={handleChange} pĺaceholder="Title Book" />
       <label htmlFor="categories">
         Choose a category:
+<<<<<<< HEAD
         <CategoryFilter categories={FILTERS} handleSelectionCreation={handleChange} creation name="categories" value={state.category} />
+=======
+        <Options categories={FILTERS} handleSelectionCreation={handleChange} creation name="category" value={state.category} />
+>>>>>>> development
       </label>
       <button type="submit">Submit</button>
     </form>
