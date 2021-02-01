@@ -5,25 +5,25 @@ import PropTypes from 'prop-types';
 const Book = props => {
   const { book, delBook } = props;
   return (
-    <div>
-      <div>
+    <div className="book-container">
+      <div className="book-child">
         <p>{book.category}</p>
         <h4>{book.title}</h4>
         <p>Jhon Doe</p>
-        <ul>
+        <ul className="links">
           <li>Comments</li>
           <li onClick={book => delBook(book)} onKeyPress={book => delBook(book)}>Remove</li>
           <li>Edit</li>
         </ul>
       </div>
-      <div>
+      <div className="book-child">
         <div className="oval" />
         <div>
           <h4>68%</h4>
           <p>Completed</p>
         </div>
       </div>
-      <div>
+      <div className="book-child">
         <h5>CURRENT CHAPTER</h5>
         <p>Introduction</p>
         <button type="button">UPDATE PROGRESS</button>

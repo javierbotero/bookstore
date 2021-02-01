@@ -7,7 +7,9 @@ import { removeBook } from '../actions/index';
 const All = props => {
   const { books, delBook } = props;
   const result = [];
-  books.filter((book, i) => result.push(<Book delBook={() => delBook(i)} book={book} />));
+  books.filter(
+    (book, i) => result.push(<Book key={book.id} delBook={() => delBook(i)} book={book} />),
+  );
   return (
     <div>
       {result}

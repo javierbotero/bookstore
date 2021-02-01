@@ -92,3 +92,28 @@ a {
   color: #121212;
 }
 
+.book-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 90%;
+  margin: 37px auto;
+  height: 170px;
+  border-radius: 4px;
+  border-left: 20px solid #ffffff;
+  background-color: #ffffff;
+}
+
+.book-child {
+  flex: 1 1 33.3%;
+}
+
+.oval {
+  width: 68px;
+  height: 68px;
+  border-style: solid;
+  border-width: 5px;
+  border-image-source: linear-gradient(to bottom, #307bbe, #379cf6);
+  border-image-slice: 1;
+}
+
