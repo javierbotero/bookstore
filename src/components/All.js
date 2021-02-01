@@ -9,19 +9,9 @@ const All = props => {
   const result = [];
   books.filter((book, i) => result.push(<Book delBook={() => delBook(i)} book={book} />));
   return (
-    <table>
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Title</th>
-          <th>Category</th>
-          <th>Remove</th>
-        </tr>
-      </thead>
-      <tbody>
-        {result}
-      </tbody>
-    </table>
+    <div>
+      {result}
+    </div>
   );
 };
 

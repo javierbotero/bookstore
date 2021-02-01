@@ -5,12 +5,30 @@ import PropTypes from 'prop-types';
 const Book = props => {
   const { book, delBook } = props;
   return (
-    <tr>
-      <td>{book.id.slice(0, 7)}</td>
-      <td>{book.title}</td>
-      <td>{book.category}</td>
-      <td onClick={book => delBook(book)} onKeyPress={book => delBook(book)}>Delete Book</td>
-    </tr>
+    <div>
+      <div>
+        <p>{book.category}</p>
+        <h4>{book.title}</h4>
+        <p>Jhon Doe</p>
+        <ul>
+          <li>Comments</li>
+          <li onClick={book => delBook(book)} onKeyPress={book => delBook(book)}>Remove</li>
+          <li>Edit</li>
+        </ul>
+      </div>
+      <div>
+        <div className="oval" />
+        <div>
+          <h4>68%</h4>
+          <p>Completed</p>
+        </div>
+      </div>
+      <div>
+        <h5>CURRENT CHAPTER</h5>
+        <p>Introduction</p>
+        <button type="button">UPDATE PROGRESS</button>
+      </div>
+    </div>
   );
 };
 

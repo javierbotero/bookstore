@@ -39,19 +39,9 @@ const BooksList = props => {
         Categories
         <CategoryFilter categories={FILTERS} handleSelection={handleFilterChange} name="categories" value={category} />
       </label>
-      <table>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Title</th>
-            <th>Category</th>
-            <th>Remove</th>
-          </tr>
-        </thead>
-        <tbody>
-          {filteredBooks()}
-        </tbody>
-      </table>
+      <div>
+        {filteredBooks()}
+      </div>
     </div>
   );
 };
