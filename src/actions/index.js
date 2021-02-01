@@ -9,7 +9,9 @@ const addBook = (title, category) => {
 
   return {
     type: CREATE_BOOK,
-    payload: { title, category, id },
+    payload: {
+      title, category, id,
+    },
   };
 };
 

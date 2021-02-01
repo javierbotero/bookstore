@@ -4,6 +4,13 @@ import PropTypes from 'prop-types';
 
 const Book = props => {
   const { book, delBook } = props;
+  const width = 80;
+  const height = 80;
+  const strWidth = 6;
+  const radius = (width / 2) - (strWidth * 2);
+  const circumference = radius * 2 * Math.PI;
+  const strCircumference = `${circumference} ${circumference}`;
+  const completed = circumference - ((circumference / 100) * book.completed);
   return (
     <div className="book-container">
       <div className="book-child">
@@ -17,7 +24,30 @@ const Book = props => {
         </ul>
       </div>
       <div className="book-child">
-        <div className="oval" />
+        <svg style={{
+          width,
+          height,
+        }}
+        >
+          <defs>
+            <radialGradient id="gradient" cx="50%" cy="50%" r="55%">
+              <stop offset="90%" stopColor="#379cf6" />
+              <stop offset="100%" stopColor="#307bbe" />
+            </radialGradient>
+          </defs>
+          <circle
+            r={radius}
+            cx={width / 2}
+            cy={height / 2}
+            stroke="url(#gradient)"
+            style={{
+              strokeWidth: strWidth,
+              strokeDasharray: strCircumference,
+              strokeDashoffset: completed,
+              fill: 'transparent',
+            }}
+          />
+        </svg>
         <div>
           <h4>68%</h4>
           <p>Completed</p>
