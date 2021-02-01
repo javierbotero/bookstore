@@ -1,6 +1,6 @@
-# Calculator App
+# Bookstore CMS
 
-This is a bookstore fictional app where books are organized and manage based on categories. It is built with Javascript React & Redux frameworks getting a dynamic and responsive app.
+It is a fictional bookstore app that organizes and stores books based on categories. It is built with Javascript React & Redux frameworks getting a dynamic and responsive app.
 
 ## Live Preview
 
@@ -32,7 +32,7 @@ in the terminal to install the dependencies.
 ```
   npm start
 ```
-And you will have the calculator in your local environment.
+And you will have the bookstore working locally.
 
 ## Authors
 
