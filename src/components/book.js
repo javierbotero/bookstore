@@ -14,13 +14,13 @@ const Book = props => {
   return (
     <div className="book-container">
       <div className="book-child">
-        <p>{book.category}</p>
-        <h4>{book.title}</h4>
-        <p>Jhon Doe</p>
+        <p className="School-of">{book.category}</p>
+        <h4 className="title">{book.title}</h4>
+        <p className="Comments">Jhon Doe</p>
         <ul className="links">
-          <li>Comments</li>
-          <li onClick={book => delBook(book)} onKeyPress={book => delBook(book)}>Remove</li>
-          <li>Edit</li>
+          <li className="Comments comments-border">Comments</li>
+          <li className="Comments comments-border" onClick={book => delBook(book)} onKeyPress={book => delBook(book)}>Remove</li>
+          <li className="Comments">Edit</li>
         </ul>
       </div>
       <div className="book-child">
@@ -39,12 +39,24 @@ const Book = props => {
             r={radius}
             cx={width / 2}
             cy={height / 2}
+            stroke="#e8e8e8"
+            style={{
+              strokeWidth: strWidth,
+              fill: 'transparent',
+            }}
+          />
+          <circle
+            r={radius}
+            cx={width / 2}
+            cy={height / 2}
             stroke="url(#gradient)"
             style={{
               strokeWidth: strWidth,
               strokeDasharray: strCircumference,
               strokeDashoffset: completed,
               fill: 'transparent',
+              transform: 'rotate(-90deg)',
+              transformOrigin: 'center',
             }}
           />
         </svg>
@@ -54,9 +66,9 @@ const Book = props => {
         </div>
       </div>
       <div className="book-child">
-        <h5>CURRENT CHAPTER</h5>
-        <p>Introduction</p>
-        <button type="button">UPDATE PROGRESS</button>
+        <h5 className="Current-Chapter ">CURRENT CHAPTER</h5>
+        <p className="Current-Lesson">Introduction</p>
+        <button type="button" className="Rectangle-2"><span className="Update-progress">UPDATE PROGRESS</span></button>
       </div>
     </div>
   );

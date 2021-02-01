@@ -16,7 +16,7 @@ const App = () => (
       <nav>
         <div className="layout flex-x">
           <div className="menu">
-            <h2 className="title">Bookstore CMS</h2>
+            <h2 className="title-bookstore">Bookstore CMS</h2>
             <ul className="links">
               <li className="books"><Link to="/">BOOKS</Link></li>
               <li className="categories"><Link to="/categories">CATEGORIES</Link></li>
