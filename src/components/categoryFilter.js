@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FILTERS } from '../constants/constants';
 
-const Options = props => {
+const CategoryFilter = props => {
   const {
     categories, handleSelectionCreation, creation, name, value, handleSelection,
   } = props;
@@ -21,7 +21,7 @@ const Options = props => {
   );
 };
 
-Options.propTypes = {
+CategoryFilter.propTypes = {
   categories: PropTypes.objectOf(PropTypes.string).isRequired,
   handleSelectionCreation: PropTypes.func,
   handleSelection: PropTypes.func,
@@ -30,10 +30,10 @@ Options.propTypes = {
   value: PropTypes.string.isRequired,
 };
 
-Options.defaultProps = {
+CategoryFilter.defaultProps = {
   creation: false,
   handleSelectionCreation: null,
   handleSelection: null,
 };
 
-export default Options;
+export default CategoryFilter;
