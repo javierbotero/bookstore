@@ -18,17 +18,22 @@ const BookForm = props => {
   };
   const handleSubmit = e => {
     e.preventDefault();
-    if (state.category !== 'Category') {
+    if (state.category !== 'Category' && state.title.length > 0) {
       getBook(state.title, state.category);
       setState({
         title: '',
         category: FILTERS.category,
       });
+      document.querySelector('input').value = '';
+      document.querySelector('.Error').classList.remove('display-error');
+    } else {
+      document.querySelector('.Error').classList += ' display-error';
     }
   };
   return (
     <div>
       <div className="layout form-container">
+        <div className="Error">Please make sure to fill the form</div>
         <h3 className="title-form">ADD NEW BOOK</h3>
         <form onSubmit={handleSubmit}>
           <input type="text" onChange={handleChange} name="title" placeHolder="Book Title" />

@@ -353,6 +353,21 @@ select, button {
   color: #121212;
 }
 
+.Error {
+  background-color: red;
+  display: none;
+  color: #e8e8e8;
+  font-family: 'Monserrat', sans-serif;
+  font-size: 1em;
+  margin: 10px 0;
+  padding: 20px 0;
+  text-align: center;
+}
+
+.display-error {
+  display: block;
+}
+
 @media screen and (min-width: 500px) {
   .book-container, .flex-x, .menu, form {
     flex-direction: row;
