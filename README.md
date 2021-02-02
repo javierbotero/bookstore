@@ -1,12 +1,12 @@
 # Bookstore CMS
 
-It is a fictional bookstore app that organizes and stores books based on categories. It is built with Javascript React & Redux frameworks getting a dynamic and responsive app.
+It is a bookstore app that organizes and stores books based on categories. It is built with Javascript React & Redux frameworks getting a dynamic and responsive app.
 
 ## Live Preview
 
 [See the Book Store Online App](https://javier-bookstore.herokuapp.com/)
 
-![Screenshot Bookstore](./assets/images/bookstore.png)
+![Screenshot Bookstore](.src/assets/images/bookstore.png)
 
 ## Built With
 
