@@ -31,7 +31,7 @@ body {
 nav {
   width: 100%;
   min-height: 95px;
-  background-color: #ffffff;
+  background-color: #fff;
   display: flex;
 }
 
@@ -50,14 +50,15 @@ form {
   align-items: center;
 }
 
-input, select {
+input,
+select {
   flex: 2 2 50%;
   height: 30px;
   margin: 19px 20px 0 0;
   padding: 13px 0 13px 13px;
   border-radius: 4px;
   border: solid 1px #e8e8e8;
-  background-color: #ffffff;
+  background-color: #fff;
 }
 
 input::placeholder {
@@ -81,9 +82,9 @@ select {
   line-height: normal;
   letter-spacing: -0.15px;
   color: #c4c4c4;
-  -moz-appearance:none; /* Firefox */
-  -webkit-appearance:none; /* Safari and Chrome */
-  appearance:none;
+  -moz-appearance: none; /* Firefox */
+  -webkit-appearance: none; /* Safari and Chrome */
+  appearance: none;
   background-image: url("./images/down-arrow.png");
   background-repeat: no-repeat;
   background-position-x: 95%;
@@ -94,7 +95,8 @@ select option {
   color: #5e5e5e;
 }
 
-select, button {
+select,
+button {
   flex: 1 1 25%;
 }
 
@@ -140,7 +142,7 @@ select, button {
 
 .books a {
   font-family: 'Monserrat', sans-serif;
-  margin: 0px 41px 0px 0;
+  margin: 0 41px 0 0;
   font-size: 13px;
   font-weight: normal;
   font-stretch: normal;
@@ -153,7 +155,7 @@ select, button {
 .categories a {
   opacity: 0.5;
   font-family: 'Monserrat', sans-serif;
-  margin: 0px 41px 0px 0;
+  margin: 0 41px 0 0;
   font-size: 13px;
   font-weight: normal;
   font-stretch: normal;
@@ -171,8 +173,8 @@ select, button {
   width: 90%;
   margin: 37px auto;
   border-radius: 4px;
-  border: 20px solid #ffffff;
-  background-color: #ffffff;
+  border: 20px solid #fff;
+  background-color: #fff;
 }
 
 .book-child {
@@ -208,7 +210,7 @@ select, button {
   font-style: normal;
   line-height: normal;
   letter-spacing: 0.5px;
-  color: #ffffff;
+  color: #fff;
 }
 
 .Current-Lesson {
@@ -248,7 +250,7 @@ select, button {
   line-height: normal;
   letter-spacing: 0.5px;
   text-align: center;
-  color: #ffffff;
+  color: #fff;
 }
 
 .Comments {
@@ -310,7 +312,7 @@ select, button {
   font-style: normal;
   line-height: normal;
   letter-spacing: -0.18px;
-  color: #888888;
+  color: #888;
 }
 
 .records {
@@ -375,7 +377,10 @@ select, button {
 }
 
 @media screen and (min-width: 500px) {
-  .book-container, .flex-x, .menu, form {
+  .book-container,
+  .flex-x,
+  .menu,
+  form {
     flex-direction: row;
   }
 
