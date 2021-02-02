@@ -29,9 +29,9 @@ const BookForm = props => {
   return (
     <div>
       <div className="layout form-container">
-        <h3>ADD NEW BOOK</h3>
+        <h3 className="title-form">ADD NEW BOOK</h3>
         <form onSubmit={handleSubmit}>
-          <input type="text" onChange={handleChange} name="title" pĺaceholder="Book Title" />
+          <input type="text" onChange={handleChange} name="title" placeHolder="Book Title" />
           <CategoryFilter categories={FILTERS} handleSelectionCreation={handleChange} creation name="category" value={state.category} />
           <button className="Rectangle-2 Rectangle-3" type="submit">Submit</button>
         </form>

@@ -55,6 +55,33 @@ input, select {
   background-color: #ffffff;
 }
 
+input::placeholder {
+  height: 19px;
+  font-family: 'Monserrat', sans-serif;
+  font-size: 16px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: -0.15px;
+  color: #c4c4c4;
+}
+
+select {
+  font-family: 'Monserrat', sans-serif;
+  font-size: 16px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: -0.15px;
+  color: #c4c4c4;
+}
+
+select option {
+  color: #5e5e5e;
+}
+
 select, button {
   flex: 1 1 25%;
 }
@@ -78,7 +105,7 @@ select, button {
 
 .title-bookstore {
   min-height: 37px;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Monserrat', sans-serif;
   font-size: 30px;
   font-weight: bold;
   font-stretch: normal;
@@ -100,7 +127,7 @@ select, button {
 }
 
 .books a {
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Monserrat', sans-serif;
   margin: 0px 41px 0px 0;
   font-size: 13px;
   font-weight: normal;
@@ -113,7 +140,7 @@ select, button {
 
 .categories a {
   opacity: 0.5;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Monserrat', sans-serif;
   margin: 0px 41px 0px 0;
   font-size: 13px;
   font-weight: normal;
@@ -239,7 +266,7 @@ select, button {
   height: 18px;
   margin: 0 39px 0 0;
   opacity: 0.5;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Monserrat', sans-serif;
   font-size: 14px;
   font-weight: bold;
   font-stretch: normal;
@@ -252,6 +279,18 @@ select, button {
 .form-container {
   border-top: solid 1px rgba(0, 0, 0, 0.05);
   padding: 30px 0;
+}
+
+.title-form {
+  height: 24px;
+  font-family: 'Monserrat', sans-serif;
+  font-size: 20px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: -0.18px;
+  color: #888888;
 }
 
 @media screen and (min-width: 500px) {
