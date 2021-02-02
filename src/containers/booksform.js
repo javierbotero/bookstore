@@ -33,7 +33,7 @@ const BookForm = props => {
         <form onSubmit={handleSubmit}>
           <input type="text" onChange={handleChange} name="title" placeHolder="Book Title" />
           <CategoryFilter categories={FILTERS} handleSelectionCreation={handleChange} creation name="category" value={state.category} />
-          <button className="Rectangle-2 Rectangle-3" type="submit">Submit</button>
+          <button className="Rectangle-2 Rectangle-3" type="submit">ADD BOOK</button>
         </form>
       </div>
     </div>

@@ -13,6 +13,11 @@
   src: local('Roboto Slab Bold'), url(./fonts/RobotoSlab-Bold.ttf) format('truetype');
 }
 
+@font-face {
+  font-family: 'Monserrat-light';
+  src: local('Monserrat-light'), url(./fonts/Montserrat-ExtraLight.ttf) format('truetype');
+}
+
 * {
   padding: 0;
   margin: 0;
@@ -76,6 +81,13 @@ select {
   line-height: normal;
   letter-spacing: -0.15px;
   color: #c4c4c4;
+  -moz-appearance:none; /* Firefox */
+  -webkit-appearance:none; /* Safari and Chrome */
+  appearance:none;
+  background-image: url("./images/down-arrow.png");
+  background-repeat: no-repeat;
+  background-position-x: 95%;
+  background-position-y: 50%;
 }
 
 select option {
@@ -189,6 +201,14 @@ select, button {
   height: 45px;
   margin: 19px 0 0 0;
   padding: 6px 0;
+  font-family: 'Roboto Slab Bold', serif;
+  font-size: 13px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.5px;
+  color: #ffffff;
 }
 
 .Current-Lesson {
@@ -291,6 +311,46 @@ select, button {
   line-height: normal;
   letter-spacing: -0.18px;
   color: #888888;
+}
+
+.records {
+  display: flex;
+}
+
+.records svg {
+  margin-right: 5px;
+}
+
+.records-numbers {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.records-numbers h4 {
+  height: 39px;
+  font-family: 'Monserrat-light', sans-serif;
+  font-size: 39px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #121212;
+}
+
+.records-numbers p {
+  height: 18px;
+  margin: 7px 0 12px 0;
+  opacity: 0.5;
+  font-family: 'Monserrat', sans-serif;
+  font-size: 14px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #121212;
 }
 
 @media screen and (min-width: 500px) {

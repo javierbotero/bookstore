@@ -23,7 +23,7 @@ const Book = props => {
           <li className="Comments">Edit</li>
         </ul>
       </div>
-      <div className="book-child">
+      <div className="book-child records">
         <svg style={{
           width,
           height,
@@ -60,7 +60,7 @@ const Book = props => {
             }}
           />
         </svg>
-        <div>
+        <div className="records-numbers">
           <h4>68%</h4>
           <p>Completed</p>
         </div>
