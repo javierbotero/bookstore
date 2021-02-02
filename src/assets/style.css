@@ -368,8 +368,18 @@ select, button {
   display: block;
 }
 
+.list-select {
+  width: 90%;
+  margin: 0 auto;
+  display: flex;
+}
+
 @media screen and (min-width: 500px) {
   .book-container, .flex-x, .menu, form {
     flex-direction: row;
+  }
+
+  .list-select {
+    width: 50%;
   }
 }
