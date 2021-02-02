@@ -38,6 +38,12 @@ a {
   text-decoration: none;
 }
 
+form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
 .layout {
   width: 90%;
   margin: 0 auto;
@@ -223,7 +229,7 @@ a {
 }
 
 @media screen and (min-width: 500px) {
-  .book-container, .flex-x, .menu {
+  .book-container, .flex-x, .menu, form {
     flex-direction: row;
   }
 }

@@ -9,7 +9,7 @@ import CategoryFilter from '../components/categoryFilter';
 const BookForm = props => {
   const [state, setState] = useState({
     title: '',
-    category: FILTERS.action,
+    category: FILTERS.category,
   });
   const { getBook } = props;
   const handleChange = e => {
@@ -18,21 +18,28 @@ const BookForm = props => {
   };
   const handleSubmit = e => {
     e.preventDefault();
-    getBook(state.title, state.category);
-    setState({
-      title: '',
-      category: FILTERS.action,
-    });
+    if (state.category !== 'Category') {
+      getBook(state.title, state.category);
+      setState({
+        title: '',
+        category: FILTERS.category,
+      });
+    }
   };
   return (
-    <form onSubmit={handleSubmit}>
-      <input type="text" onChange={handleChange} pĺaceholder="Title Book" />
-      <label htmlFor="categories">
-        Choose a category:
-        <CategoryFilter categories={FILTERS} handleSelectionCreation={handleChange} creation name="categories" value={state.category} />
-      </label>
-      <button type="submit">Submit</button>
-    </form>
+    <div>
+      <div className="layout">
+        <h3>ADD NEW BOOK</h3>
+        <form onSubmit={handleSubmit}>
+          <input type="text" onChange={handleChange} name="title" pĺaceholder="Book Title" />
+          <label htmlFor="categories">
+            Choose a category:
+            <CategoryFilter categories={FILTERS} handleSelectionCreation={handleChange} creation name="category" value={state.category} />
+          </label>
+          <button type="submit">Submit</button>
+        </form>
+      </div>
+    </div>
   );
 };
 
