@@ -264,10 +264,21 @@ button {
   line-height: normal;
   letter-spacing: normal;
   color: #4386bf;
+  border-right: 1px solid #e8e8e8;
+  padding: 0 5px;
 }
 
-.comments-border {
-  border-right: 1px solid #e8e8e8;
+.Comments:last-child {
+  margin-left: 5px;
+  border-right: 0;
+}
+
+.Comments:first-child {
+  padding-left: 0;
+}
+
+p.Comments {
+  padding: 0;
 }
 
 .title {

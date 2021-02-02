@@ -18,8 +18,8 @@ const Book = props => {
         <h4 className="title">{book.title}</h4>
         <p className="Comments">Jhon Doe</p>
         <ul className="links">
-          <li className="Comments comments-border">Comments</li>
-          <li className="Comments comments-border" onClick={book => delBook(book)} onKeyPress={book => delBook(book)}>Remove</li>
+          <li className="Comments">Comments</li>
+          <li className="Comments" onClick={book => delBook(book)} onKeyPress={book => delBook(book)}>Remove</li>
           <li className="Comments">Edit</li>
         </ul>
       </div>
