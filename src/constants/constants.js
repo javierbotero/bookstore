@@ -7,6 +7,7 @@ const FILTERS = {
   Learning: 'Learning',
   scifi: 'Sci-Fi',
   all: 'All',
+  category: 'Category',
 };
 
 const CATEGORIES = ['Action', 'Biography', 'History', 'Horror', 'Kids', 'Learning', 'Sci-Fi'];

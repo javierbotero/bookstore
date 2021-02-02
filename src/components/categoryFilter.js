@@ -16,7 +16,12 @@ const CategoryFilter = props => {
       onChange={handleSelection || handleSelectionCreation}
       value={value}
     >
-      {result.map(category => <option key={category} value={category}>{category}</option>)}
+      {result.map(category => {
+        if (category === 'Category') {
+          return <option key={category} value={category} disabled>{category}</option>;
+        }
+        return <option key={category} value={category}>{category}</option>;
+      })}
     </select>
   );
 };

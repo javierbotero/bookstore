@@ -35,23 +35,12 @@ const BooksList = props => {
   };
   return (
     <div>
-      <label htmlFor="categories">
-        Set filter
+      <div className="list-select">
         <CategoryFilter categories={FILTERS} handleSelection={handleFilterChange} name="categories" value={category} />
-      </label>
-      <table>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Title</th>
-            <th>Category</th>
-            <th>Remove</th>
-          </tr>
-        </thead>
-        <tbody>
-          {filteredBooks()}
-        </tbody>
-      </table>
+      </div>
+      <div>
+        {filteredBooks()}
+      </div>
     </div>
   );
 };

@@ -6,6 +6,8 @@ It is a fictional bookstore app that organizes and stores books based on categor
 
 [See the Book Store Online App](https://javier-bookstore.herokuapp.com/)
 
+![Screenshot Bookstore](./assets/images/bookstore.png)
+
 ## Built With
 
 - React

@@ -9,7 +9,7 @@ import CategoryFilter from '../components/categoryFilter';
 const BookForm = props => {
   const [state, setState] = useState({
     title: '',
-    category: FILTERS.action,
+    category: FILTERS.category,
   });
   const { getBook } = props;
   const handleChange = e => {
@@ -18,21 +18,30 @@ const BookForm = props => {
   };
   const handleSubmit = e => {
     e.preventDefault();
-    getBook(state.title, state.category);
-    setState({
-      title: '',
-      category: FILTERS.action,
-    });
+    if (state.category !== 'Category' && state.title.length > 0) {
+      getBook(state.title, state.category);
+      setState({
+        title: '',
+        category: FILTERS.category,
+      });
+      document.querySelector('input').value = '';
+      document.querySelector('.Error').classList.remove('display-error');
+    } else {
+      document.querySelector('.Error').classList += ' display-error';
+    }
   };
   return (
-    <form onSubmit={handleSubmit}>
-      <input type="text" onChange={handleChange} pĺaceholder="Title Book" />
-      <label htmlFor="categories">
-        Choose a category:
-        <CategoryFilter categories={FILTERS} handleSelectionCreation={handleChange} creation name="categories" value={state.category} />
-      </label>
-      <button type="submit">Submit</button>
-    </form>
+    <div>
+      <div className="layout form-container">
+        <div className="Error">Please make sure to fill the form</div>
+        <h3 className="title-form">ADD NEW BOOK</h3>
+        <form onSubmit={handleSubmit}>
+          <input type="text" onChange={handleChange} name="title" placeHolder="Book Title" />
+          <CategoryFilter categories={FILTERS} handleSelectionCreation={handleChange} creation name="category" value={state.category} />
+          <button className="Rectangle-2 Rectangle-3" type="submit">ADD BOOK</button>
+        </form>
+      </div>
+    </div>
   );
 };
 
