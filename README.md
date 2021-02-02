@@ -6,7 +6,7 @@ It is a bookstore app that organizes and stores books based on categories. It is
 
 [See the Book Store Online App](https://javier-bookstore.herokuapp.com/)
 
-![Screenshot Bookstore](.src/assets/images/bookstore.png)
+![Screenshot Bookstore](./src/assets/images/bookstore.png)
 
 ## Built With
 
