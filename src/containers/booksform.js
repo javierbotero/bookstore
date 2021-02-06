@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { addBook } from '../actions/index';
 import { FILTERS } from '../constants/constants';
 import CategoryFilter from '../components/categoryFilter';
+import useApi from '../hooks/useapi';
 
 const BookForm = props => {
   const [state, setState] = useState({
@@ -16,7 +17,7 @@ const BookForm = props => {
     const { name, value } = e.target;
     setState({ ...state, [name]: value });
   };
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault();
     if (state.category !== 'Category' && state.title.length > 0) {
       getBook(state.title, state.category);
@@ -26,6 +27,7 @@ const BookForm = props => {
       });
       document.querySelector('input').value = '';
       document.querySelector('.Error').classList.remove('display-error');
+      await useApi('POST', { user_id: localStorage.getItem('bookStoreUserId'), state });
     } else {
       document.querySelector('.Error').classList += ' display-error';
     }
