@@ -12,8 +12,8 @@ import Loggin from '../components/Loggin';
 import userImage from '../assets/images/user-icon.png';
 
 const App = () => {
-  const loggin = localStorage.getItem('id');
-  if (loggin) {
+  const id = localStorage.getItem('bookStoreUserId');
+  if (id) {
     return (
       <div>
         <BrowserRouter>

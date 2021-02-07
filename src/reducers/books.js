@@ -1,6 +1,23 @@
 import { v4 as uuidv4 } from 'uuid';
 import { CREATE_BOOK, REMOVE_BOOK } from '../actions/index';
-import { FILTERS } from '../constants/constants';
+import { FILTERS, URL } from '../constants/constants';
+
+const id = localStorage.getItem('bookStoreUserId');
+
+const init = {
+  method: 'POST',
+  mode: 'cors',
+  cache: 'no-cache',
+  credentials: 'same-origin',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  redirect: 'follow',
+  referrerPolicy: 'no-referrer',
+  body: JSON.stringify({ id }),
+};
+
+const fetchedBooks = fetch(URL, init);
 
 const initialState = [
   {
@@ -35,7 +52,7 @@ const initialState = [
   },
 ];
 
-const books = (state = initialState, action) => {
+const books = (state = fetchedBooks.length === 0 ? initialState : fetchedBooks, action) => {
   switch (action.type) {
     case CREATE_BOOK:
       return [...state, {

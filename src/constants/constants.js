@@ -14,4 +14,8 @@ const CATEGORIES = ['Action', 'Biography', 'History', 'Horror', 'Kids', 'Learnin
 
 const URL = 'http://localhost:3000/users';
 
-export { FILTERS, CATEGORIES, URL };
+const LOGGIN_URL = 'http://localhost:3000/loggin';
+
+export {
+  FILTERS, CATEGORIES, URL, LOGGIN_URL,
+};

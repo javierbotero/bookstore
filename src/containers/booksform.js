@@ -27,7 +27,7 @@ const BookForm = props => {
       });
       document.querySelector('input').value = '';
       document.querySelector('.Error').classList.remove('display-error');
-      await useApi('POST', { user_id: localStorage.getItem('bookStoreUserId'), state });
+      await useApi('POST', { user_id: localStorage.getItem('bookStoreUserId'), ...state });
     } else {
       document.querySelector('.Error').classList += ' display-error';
     }

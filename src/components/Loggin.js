@@ -4,6 +4,8 @@ import {
   Route,
   Link,
 } from 'react-router-dom';
+import Form from './Form';
+import { URL, LOGGIN_URL } from '../constants/constants';
 
 const Loggin = () => (
   <BrowserRouter>
@@ -12,17 +14,21 @@ const Loggin = () => (
         <div className="menu">
           <h2 className="title-bookstore">Bookstore CMS</h2>
           <ul className="links">
-            <li className="books"><Link to="/">Log in</Link></li>
-            <li className="categories"><Link to="/signin">Sign in</Link></li>
+            <li className="books"><Link to="/">Sign in</Link></li>
+            <li className="categories"><Link to="/signin">Sign up</Link></li>
           </ul>
-        </div>
-        <div>
-          <img src={userImage} alt="user" />
         </div>
       </div>
     </nav>
     <Switch>
-
+      <Route exact path="/">
+        <Form verb="GET" url={LOGGIN_URL} />
+      </Route>
+      <Route exact path="/signin">
+        <Form verb="POST" url={URL} />
+      </Route>
     </Switch>
   </BrowserRouter>
 );
+
+export default Loggin;
