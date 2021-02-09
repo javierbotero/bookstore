@@ -1,25 +1,14 @@
 import PropTypes from 'prop-types';
+import useApi from '../hooks/useapi';
 
 const Form = props => {
+  const { url, verb } = props;
   const handleLoggin = async () => {
     const data = {
       email: document.getElementById('email').value,
       password: document.getElementById('password').value,
     };
-    const init = {
-      method: props.verb,
-      mode: 'cors',
-      cache: 'no-cache',
-      credentials: 'same-origin',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      redirect: 'follow',
-      referrerPolicy: 'no-referrer',
-      body: JSON.stringify(data),
-    };
-    const id = await fetch(props.url, init);
-    localStorage.setItem('bookStoreUserId', id);
+    useApi(url, verb, data);
   };
 
   return (
@@ -45,6 +34,7 @@ const Form = props => {
 
 Form.propTypes = {
   verb: PropTypes.string.isRequired,
+  url: PropTypes.string.isRequired,
 };
 
 export default Form;

@@ -2,10 +2,12 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Book from './book';
-import { removeBook } from '../actions/index';
+import { removeBook, retrieveBooks } from '../actions/index';
 
 const All = props => {
-  const { books, delBook } = props;
+  const { books, delBook, useApi } = props;
+  const id = localStorage.getItem('bookStoreUserId');
+  const fetchedBooks = useApi(URL, 'POST', { id });
   const result = [];
   books.filter(
     (book, i) => result.push(<Book key={book.id} delBook={() => delBook(i)} book={book} />),
@@ -28,6 +30,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   delBook: i => dispatch(removeBook(i)),
+  useApi: (url, verb, data) => dispatch(retrieveBooks({ url, verb, data })),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(All);

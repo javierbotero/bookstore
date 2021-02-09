@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { addBook } from '../actions/index';
+import { createBook } from '../reducers/books';
 import { FILTERS } from '../constants/constants';
 import CategoryFilter from '../components/categoryFilter';
 import useApi from '../hooks/useapi';
@@ -27,7 +27,7 @@ const BookForm = props => {
       });
       document.querySelector('input').value = '';
       document.querySelector('.Error').classList.remove('display-error');
-      await useApi('POST', { user_id: localStorage.getItem('bookStoreUserId'), ...state });
+      await useApi(URL, 'POST', { user_id: localStorage.getItem('bookStoreUserId'), ...state });
     } else {
       document.querySelector('.Error').classList += ' display-error';
     }
@@ -52,7 +52,7 @@ BookForm.propTypes = {
 };
 
 const mapDispatchToProps = dispatch => ({
-  getBook: (title, category) => dispatch(addBook(title, category)),
+  getBook: (title, category) => dispatch(createBook(title, category)),
 });
 
 export default connect(null, mapDispatchToProps)(BookForm);

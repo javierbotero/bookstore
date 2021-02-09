@@ -1,23 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
-import { CREATE_BOOK, REMOVE_BOOK } from '../actions/index';
-import { FILTERS, URL } from '../constants/constants';
-
-const id = localStorage.getItem('bookStoreUserId');
-
-const init = {
-  method: 'POST',
-  mode: 'cors',
-  cache: 'no-cache',
-  credentials: 'same-origin',
-  headers: {
-    'Content-Type': 'application/json',
-  },
-  redirect: 'follow',
-  referrerPolicy: 'no-referrer',
-  body: JSON.stringify({ id }),
-};
-
-const fetchedBooks = fetch(URL, init);
+import { createSlice } from '@reduxjs/toolkit';
+import { FILTERS } from '../constants/constants';
 
 const initialState = [
   {
@@ -52,20 +35,38 @@ const initialState = [
   },
 ];
 
-const books = (state = fetchedBooks.length === 0 ? initialState : fetchedBooks, action) => {
-  switch (action.type) {
-    case CREATE_BOOK:
-      return [...state, {
+const books = createSlice({
+  name: 'books',
+  initialState,
+  reducers: {
+    createBook: {
+      reducer: (state, action) => state.push({
         title: action.payload.title,
         category: action.payload.category,
         id: action.payload.id,
         completed: 0,
-      }];
-    case REMOVE_BOOK:
-      return [...action.payload.newBooks];
-    default:
-      return state;
-  }
-};
+      }),
+      prepare: (title, category) => {
+        const id = uuidv4();
 
-export default books;
+        return {
+          payload: {
+            title, category, id,
+          },
+        };
+      },
+    },
+    removeBook: {
+      reducer: (state, action) => state.splice(action.payload.index, 1),
+      prepare: index => ({ payload: { index } }),
+    },
+  },
+});
+
+const { createBook, removeBook } = books.actions;
+
+export default books.reducer;
+export {
+  createBook,
+  removeBook,
+};
