@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import { v4 as uuidv4 } from 'uuid';
 import { createSlice } from '@reduxjs/toolkit';
 import { retrieveBooks } from '../actions/index';
@@ -32,6 +33,19 @@ const books = createSlice({
     removeBook: {
       reducer: (state, action) => state.splice(action.payload.index, 1),
       prepare: index => ({ payload: { index } }),
+    },
+  },
+  extraReducers: {
+    [retrieveBooks.pending]: state => {
+      state.status = 'loading';
+    },
+    [retrieveBooks.fulfilled]: (state, action) => {
+      state.status = 'succeded';
+      state.books = action.payload;
+    },
+    [retrieveBooks.rejected]: (state, action) => {
+      state.status = 'failed';
+      state.error = action.payload;
     },
   },
 });

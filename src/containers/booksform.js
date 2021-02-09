@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { createBook } from '../reducers/books';
 import { FILTERS } from '../constants/constants';
 import CategoryFilter from '../components/categoryFilter';
-import useApi from '../hooks/useapi';
+import initCreator from '../actions/index';
 
 const BookForm = props => {
   const [state, setState] = useState({

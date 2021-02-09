@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import useApi from '../hooks/useapi';
+import { initCreator } from '../actions/index';
 
 const Form = props => {
   const { url, verb } = props;
@@ -8,7 +8,8 @@ const Form = props => {
       email: document.getElementById('email').value,
       password: document.getElementById('password').value,
     };
-    useApi(url, verb, data);
+    const bookCreated = await fetch(url, initCreator(verb, data));
+    console.log(bookCreated);
   };
 
   return (
