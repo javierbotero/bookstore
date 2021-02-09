@@ -1,39 +1,12 @@
 import { v4 as uuidv4 } from 'uuid';
 import { createSlice } from '@reduxjs/toolkit';
-import { FILTERS } from '../constants/constants';
+import { retrieveBooks } from '../actions/index';
 
-const initialState = [
-  {
-    title: 'A Hundred Years of Solitude',
-    category: FILTERS.biography,
-    id: uuidv4(),
-    completed: 70,
-  },
-  {
-    title: 'The Iliad',
-    category: FILTERS.history,
-    id: uuidv4(),
-    completed: 70,
-  },
-  {
-    title: 'The Shining',
-    category: FILTERS.horror,
-    id: uuidv4(),
-    completed: 70,
-  },
-  {
-    title: 'The Little Prince',
-    category: FILTERS.kids,
-    id: uuidv4(),
-    completed: 70,
-  },
-  {
-    title: 'The Invation',
-    category: FILTERS.scifi,
-    id: uuidv4(),
-    completed: 70,
-  },
-];
+const initialState = {
+  books: [],
+  status: 'idle',
+  error: null,
+};
 
 const books = createSlice({
   name: 'books',

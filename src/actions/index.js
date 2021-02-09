@@ -1,4 +1,3 @@
-
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 const CHANGE_FILTER = 'CHANGE_FILTER';
