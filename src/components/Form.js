@@ -9,16 +9,19 @@ const Form = props => {
       email: document.getElementById('email').value,
       password: document.getElementById('password').value,
     };
+    let response;
     const user = await fetch(url, initCreator(verb, data))
-      .then(data => data.json())
+      .then(data => {
+        response = data;
+        return data.json();
+      })
       .catch(error => error);
-    if (user.id) {
+    if (response.status === 200) {
       document.querySelector('.Error').classList.remove('display-error');
       localStorage.setItem('bookStoreUserId', user.id);
       localStorage.setItem('booksStoredNotFirstTime', false);
       setId(user.id);
     } else {
-      console.log('Error is: ', user);
       document.querySelector('.Error').classList += ' display-error';
       document.getElementById('email').value = '';
       document.getElementById('password').value = '';
