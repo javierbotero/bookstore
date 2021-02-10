@@ -44,13 +44,9 @@ const DEFAULT_BOOKS = [
     completed: 70,
   },
 ];
-
 const CATEGORIES = ['Action', 'Biography', 'History', 'Horror', 'Kids', 'Learning', 'Sci-Fi'];
-
-const URL = 'http://localhost:3000/users';
-
-const LOGGIN_URL = 'http://localhost:3000/loggin';
+const URL = 'http://localhost:3000/';
 
 export {
-  FILTERS, CATEGORIES, URL, LOGGIN_URL, DEFAULT_BOOKS,
+  FILTERS, CATEGORIES, URL, DEFAULT_BOOKS,
 };

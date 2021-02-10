@@ -2,17 +2,17 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { createBook } from '../reducers/books';
 import { FILTERS } from '../constants/constants';
 import CategoryFilter from '../components/categoryFilter';
-import initCreator from '../actions/index';
+import { createBook } from '../actions/index';
 
 const BookForm = props => {
   const [state, setState] = useState({
     title: '',
     category: FILTERS.category,
+    author: '',
   });
-  const { getBook } = props;
+  const { sendBook } = props;
   const handleChange = e => {
     const { name, value } = e.target;
     setState({ ...state, [name]: value });
@@ -20,14 +20,14 @@ const BookForm = props => {
   const handleSubmit = async e => {
     e.preventDefault();
     if (state.category !== 'Category' && state.title.length > 0) {
-      getBook(state.title, state.category);
+      await sendBook({ user_id: localStorage.getItem('bookStoreUserId'), book: state });
       setState({
         title: '',
         category: FILTERS.category,
+        author: '',
       });
       document.querySelector('input').value = '';
       document.querySelector('.Error').classList.remove('display-error');
-      await useApi(URL, 'POST', { user_id: localStorage.getItem('bookStoreUserId'), ...state });
     } else {
       document.querySelector('.Error').classList += ' display-error';
     }
@@ -48,11 +48,11 @@ const BookForm = props => {
 };
 
 BookForm.propTypes = {
-  getBook: PropTypes.func.isRequired,
+  sendBook: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = dispatch => ({
-  getBook: (title, category) => dispatch(createBook(title, category)),
+  sendBook: data => dispatch(createBook(data)),
 });
 
 export default connect(null, mapDispatchToProps)(BookForm);

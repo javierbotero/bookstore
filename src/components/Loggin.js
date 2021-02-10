@@ -5,7 +5,7 @@ import {
   Link,
 } from 'react-router-dom';
 import Form from './Form';
-import { URL, LOGGIN_URL } from '../constants/constants';
+import { URL } from '../constants/constants';
 
 const Loggin = () => (
   <BrowserRouter>
@@ -22,7 +22,7 @@ const Loggin = () => (
     </nav>
     <Switch>
       <Route exact path="/">
-        <Form verb="GET" url={LOGGIN_URL} />
+        <Form verb="GET" url={`${URL}loggin`} />
       </Route>
       <Route exact path="/signin">
         <Form verb="POST" url={URL} />

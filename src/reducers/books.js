@@ -1,7 +1,6 @@
 /* eslint-disable no-param-reassign */
-import { v4 as uuidv4 } from 'uuid';
 import { createSlice } from '@reduxjs/toolkit';
-import { retrieveBooks } from '../actions/index';
+import { retrieveBooks, createBook } from '../actions/index';
 
 const initialState = {
   books: [],
@@ -13,23 +12,6 @@ const books = createSlice({
   name: 'books',
   initialState,
   reducers: {
-    createBook: {
-      reducer: (state, action) => state.push({
-        title: action.payload.title,
-        category: action.payload.category,
-        id: action.payload.id,
-        completed: 0,
-      }),
-      prepare: (title, category) => {
-        const id = uuidv4();
-
-        return {
-          payload: {
-            title, category, id,
-          },
-        };
-      },
-    },
     removeBook: {
       reducer: (state, action) => state.splice(action.payload.index, 1),
       prepare: index => ({ payload: { index } }),
@@ -47,13 +29,21 @@ const books = createSlice({
       state.status = 'failed';
       state.error = action.payload;
     },
+    [createBook.pending]: state => {
+      state.status = 'Uploading';
+    },
+    [createBook.fulfilled]: (state, action) => {
+      state.status = 'Book Uploaded';
+      state.books.push(action.payload);
+    },
+    [createBook.rejected]: (state, action) => {
+      state.status = 'failed';
+      state.error = action.payload;
+    },
   },
 });
 
-const { createBook, removeBook } = books.actions;
+const { removeBook } = books.actions;
 
 export default books.reducer;
-export {
-  createBook,
-  removeBook,
-};
+export { removeBook };
