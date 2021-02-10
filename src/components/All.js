@@ -11,7 +11,7 @@ const All = props => {
     books, delBook, getBooks, status, sendBook,
   } = props;
   const id = localStorage.getItem('bookStoreUserId');
-  const notFirstTime = localStorage.getItem('bookStoreNotFirstTime');
+  const notFirstTime = localStorage.getItem('booksStoredNotFirstTime');
   useEffect(() => {
     const fetchedBooks = getBooks(URL, 'POST', { id });
     if (fetchedBooks.length === 0 && notFirstTime) {
@@ -21,10 +21,12 @@ const All = props => {
           book,
         });
       });
+      localStorage.setItem('booksStoredNotFirstTime', true);
     }
   }, [status, URL, id]);
   const result = [];
-  books.filter(
+  console.log('Books: ', books.books);
+  books.books.filter(
     (book, i) => result.push(<Book key={book.id} delBook={() => delBook(i)} book={book} />),
   );
   return (
@@ -50,7 +52,6 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   delBook: i => dispatch(removeBook(i)),
   getBooks: (url, verb, data) => dispatch(retrieveBooks({ url, verb, data })),
-  dispatch,
   sendBook: (title, category, author) => dispatch(createBook(title, category, author)),
 });
 

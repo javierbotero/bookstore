@@ -152,6 +152,10 @@ button {
   color: #121212;
 }
 
+.books a:active {
+  color: #888;
+}
+
 .categories a {
   opacity: 0.5;
   font-family: 'Monserrat', sans-serif;

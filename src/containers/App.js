@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   BrowserRouter,
   Switch,
@@ -12,8 +12,8 @@ import Loggin from '../components/Loggin';
 import userImage from '../assets/images/user-icon.png';
 
 const App = () => {
-  const id = localStorage.getItem('bookStoreUserId');
-  if (id) {
+  const [id, setId] = useState(localStorage.getItem('bookStoreUserId'));
+  if (parseInt(id, 10)) {
     return (
       <div>
         <BrowserRouter>
@@ -46,7 +46,7 @@ const App = () => {
     );
   }
 
-  return <Loggin />;
+  return <Loggin setId={setId} />;
 };
 
 export default App;
