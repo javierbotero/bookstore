@@ -26,6 +26,7 @@ const books = createSlice({
       state.books = action.payload;
     },
     [retrieveBooks.rejected]: (state, action) => {
+      console.log(action.payload);
       state.status = 'failed';
       state.error = action.payload;
     },
@@ -33,8 +34,13 @@ const books = createSlice({
       state.status = 'Uploading';
     },
     [createBook.fulfilled]: (state, action) => {
-      state.status = 'Book Uploaded';
-      state.books.push(action.payload);
+      if (action.payload.title) {
+        state.status = 'Book Uploaded';
+        state.books.push(action.payload);
+      } else {
+        state.status = 'failed';
+        state.error = action.payload;
+      }
     },
     [createBook.rejected]: (state, action) => {
       state.status = 'failed';

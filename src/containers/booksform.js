@@ -12,7 +12,7 @@ const BookForm = props => {
     category: FILTERS.category,
     author: '',
   });
-  const { sendBook } = props;
+  const { sendBook, errors } = props;
   const handleChange = e => {
     const { name, value } = e.target;
     setState({ ...state, [name]: value });
@@ -30,12 +30,16 @@ const BookForm = props => {
       document.querySelector('.Error').classList.remove('display-error');
     } else {
       document.querySelector('.Error').classList += ' display-error';
+      document.querySelector('.Error').innerHTML += `/${errors.status}`;
     }
   };
   return (
     <div>
       <div className="layout form-container">
-        <div className="Error">Please make sure to fill the form</div>
+        <div className="Error">
+          Please make sure to fill the form, errors:
+          {errors.status}
+        </div>
         <h3 className="title-form">ADD NEW BOOK</h3>
         <form onSubmit={handleSubmit}>
           <input type="text" onChange={handleChange} name="title" placeHolder="Book Title" />
@@ -49,10 +53,15 @@ const BookForm = props => {
 
 BookForm.propTypes = {
   sendBook: PropTypes.func.isRequired,
+  errors: PropTypes.objectOf(PropTypes.strings).isRequired,
 };
+
+const mapStateToProps = state => ({
+  errors: state.books,
+});
 
 const mapDispatchToProps = dispatch => ({
   sendBook: data => dispatch(createBook(data)),
 });
 
-export default connect(null, mapDispatchToProps)(BookForm);
+export default connect(mapStateToProps, mapDispatchToProps)(BookForm);

@@ -4,28 +4,34 @@ import PropTypes from 'prop-types';
 import Book from './book';
 import { retrieveBooks, createBook } from '../actions/index';
 import { removeBook } from '../reducers/books';
-import { DEFAULT_BOOKS } from '../constants/constants';
+import { URL, DEFAULT_BOOKS } from '../constants/constants';
 
 const All = props => {
   const {
-    books, delBook, getBooks, status, sendBook,
+    books, delBook, getBooks, sendBook,
   } = props;
   const id = localStorage.getItem('bookStoreUserId');
-  const notFirstTime = localStorage.getItem('booksStoredNotFirstTime');
+  const result = [];
   useEffect(() => {
-    const fetchedBooks = getBooks(URL, 'POST', { id });
-    if (fetchedBooks.length === 0 && notFirstTime) {
-      DEFAULT_BOOKS.forEach(async book => {
+    console.log('redner and books: ', books);
+    if (books.status === 'idle') {
+      getBooks(`${URL}user-books`, 'POST', { id });
+    }
+    if (books.status === 'succeded' && books.books.length === 0 && localStorage.getItem('booksStoredNotFirstTime') === 'false') {
+      DEFAULT_BOOKS.forEach(async item => {
         await sendBook({
           id,
-          book,
+          book: {
+            title: item.title,
+            category: item.category,
+            author: item.author,
+            completed: item.completed,
+          },
         });
       });
       localStorage.setItem('booksStoredNotFirstTime', true);
     }
-  }, [status, URL, id]);
-  const result = [];
-  console.log('Books: ', books.books);
+  }, [books, URL, id]);
   books.books.filter(
     (book, i) => result.push(<Book key={book.id} delBook={() => delBook(i)} book={book} />),
   );
@@ -40,13 +46,11 @@ All.propTypes = {
   books: PropTypes.objectOf(PropTypes.string).isRequired,
   delBook: PropTypes.func.isRequired,
   getBooks: PropTypes.func.isRequired,
-  status: PropTypes.string.isRequired,
   sendBook: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
   books: state.books,
-  status: state.status,
 });
 
 const mapDispatchToProps = dispatch => ({

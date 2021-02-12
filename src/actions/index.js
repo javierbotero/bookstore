@@ -23,12 +23,6 @@ const initCreator = (verb, data) => ({
   body: JSON.stringify(data),
 });
 
-const retrieveBooks = createAsyncThunk('retrieve', async ({ url, verb, data }) => {
-  const init = initCreator(verb, data);
-  const response = await fetch(url, init);
-  return response;
-});
-
 const createBook = createAsyncThunk('create', async ({
   book, id,
 }) => {
@@ -38,11 +32,22 @@ const createBook = createAsyncThunk('create', async ({
       title: book.title,
       category: book.category,
       author: book.author,
-      completed: 0,
+      completed: book.completed,
     },
   };
   const init = initCreator('POST', data);
-  const response = await fetch(`${URL}books`, init);
+  const response = await fetch(`${URL}books`, init)
+    .then(data => data.json())
+    .catch(error => error.json());
+  return response;
+});
+
+const retrieveBooks = createAsyncThunk('retrieve', async ({ url, verb, data }) => {
+  const init = initCreator(verb, data);
+  const response = await fetch(url, init)
+    .then(data => data.json())
+    .catch(error => error);
+
   return response;
 });
 
