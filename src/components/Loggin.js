@@ -4,12 +4,21 @@ import {
   Route,
   Link,
 } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import Form from './Form';
 import { URL } from '../constants/constants';
 
 const Loggin = props => {
   const { setId } = props;
+  const errors = useSelector(state => state.books.error);
+  const displayErrors = errors => {
+    let str = 'Please fill the form correctly';
+    if (errors) {
+      str += errors.toString();
+    }
+    return str;
+  };
   return (
     <BrowserRouter>
       <nav>
@@ -23,6 +32,9 @@ const Loggin = props => {
           </div>
         </div>
       </nav>
+      <div className="Error">
+        {displayErrors(errors)}
+      </div>
       <Switch>
         <Route exact path="/">
           <p className="title">Loggin</p>

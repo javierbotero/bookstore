@@ -13,7 +13,6 @@ const All = props => {
   const id = localStorage.getItem('bookStoreUserId');
   const result = [];
   useEffect(() => {
-    console.log('redner and books: ', books);
     if (books.status === 'idle') {
       getBooks(`${URL}user-books`, 'POST', { id });
     }

@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { FILTERS } from '../constants/constants';
 import CategoryFilter from '../components/categoryFilter';
 import { createBook } from '../actions/index';
+import displayErrors from '../helpers/helpers';
 
 const BookForm = props => {
   const [state, setState] = useState({
@@ -30,7 +31,7 @@ const BookForm = props => {
       document.querySelector('.Error').classList.remove('display-error');
     } else {
       document.querySelector('.Error').classList += ' display-error';
-      document.querySelector('.Error').innerHTML += `/${errors.status}`;
+      document.querySelector('.Error').innerHTML += `/${displayErrors(errors)}`;
     }
   };
   return (
@@ -38,7 +39,7 @@ const BookForm = props => {
       <div className="layout form-container">
         <div className="Error">
           Please make sure to fill the form, errors:
-          {errors.status}
+          {displayErrors(errors)}
         </div>
         <h3 className="title-form">ADD NEW BOOK</h3>
         <form onSubmit={handleSubmit}>
@@ -57,7 +58,7 @@ BookForm.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  errors: state.books,
+  errors: state.books.error,
 });
 
 const mapDispatchToProps = dispatch => ({

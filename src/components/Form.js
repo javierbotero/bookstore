@@ -30,7 +30,6 @@ const Form = props => {
 
   return (
     <form onSubmit={handleLoggin}>
-      <div className="Error">Please fill the form correctly</div>
       <div>
         <label htmlFor="email">
           Email

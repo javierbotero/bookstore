@@ -14,25 +14,25 @@ const DEFAULT_BOOKS = [
   {
     title: 'A Hundred Years of Solitude',
     category: FILTERS.biography,
-    author: 'Jhon Doe',
+    author: 'Grabriel García Marquez',
     completed: 70,
   },
   {
     title: 'The Iliad',
     category: FILTERS.history,
-    author: 'Jhon Doe',
+    author: 'Homer',
     completed: 70,
   },
   {
     title: 'The Shining',
     category: FILTERS.horror,
-    author: 'Jhon Doe',
+    author: 'Stephen King',
     completed: 70,
   },
   {
     title: 'The Little Prince',
     category: FILTERS.kids,
-    author: 'Jhon Doe',
+    author: 'Antoine de Saint-Exupéry',
     completed: 70,
   },
   {
