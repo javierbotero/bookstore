@@ -43,13 +43,18 @@ const createBook = createAsyncThunk('create', async ({
 });
 
 const retrieveBooks = createAsyncThunk('retrieve', async ({ url, verb, data }) => {
-  console.log('running retrieveBooks actionthunk');
   const init = initCreator(verb, data);
   const response = await fetch(url, init)
     .then(data => data.json())
     .catch(error => error);
+  return response;
+});
 
-  console.log('Running thunk action retrieveBooks', response);
+const updateBook = createAsyncThunk('update-book', async data => {
+  const init = initCreator('POST', data);
+  const response = fetch(`${URL}books`, init)
+    .then(data => data.json())
+    .catch(error => error.json());
   return response;
 });
 
@@ -59,4 +64,5 @@ export {
   initCreator,
   retrieveBooks,
   createBook,
+  updateBook,
 };
