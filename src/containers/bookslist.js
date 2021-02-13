@@ -22,11 +22,11 @@ const BooksList = props => {
   const filteredBooks = () => {
     const result = [];
     if (localFilter === FILTERS.all) {
-      books.forEach((item, i) => {
+      books.books.forEach((item, i) => {
         result.push(<Book key={item.id} book={item} delBook={() => handleRemoveBook(i)} />);
       });
     } else {
-      books.forEach((item, i) => {
+      books.books.forEach((item, i) => {
         if (item.category === localFilter) {
           result.push(<Book key={item.id} book={item} delBook={() => handleRemoveBook(i)} />);
         }

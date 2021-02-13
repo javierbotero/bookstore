@@ -43,11 +43,13 @@ const createBook = createAsyncThunk('create', async ({
 });
 
 const retrieveBooks = createAsyncThunk('retrieve', async ({ url, verb, data }) => {
+  console.log('running retrieveBooks actionthunk');
   const init = initCreator(verb, data);
   const response = await fetch(url, init)
     .then(data => data.json())
     .catch(error => error);
 
+  console.log('Running thunk action retrieveBooks', response);
   return response;
 });
 

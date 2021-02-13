@@ -5,24 +5,50 @@ import {
   Route,
   Link,
 } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { createBook, retrieveBooks } from '../actions/index';
 import BookList from './bookslist';
 import BookForm from './booksform';
 import All from '../components/All';
 import Loggin from '../components/Loggin';
 import userImage from '../assets/images/user-icon.png';
-import displayErrors from '../helpers/helpers';
+import { DEFAULT_BOOKS, URL } from '../constants/constants';
 
 const App = () => {
   const [id, setId] = useState(localStorage.getItem('bookStoreUserId'));
   const errors = useSelector(state => state.books.error);
+  const books = useSelector(state => state.books);
+  const dispatch = useDispatch();
   useEffect(() => {
     if (errors) {
       document.querySelector('.Error').classList += ' display-error';
     } else {
       document.querySelector('.Error').classList.remove('display-error');
     }
-  });
+
+    if (books.status === 'idle') {
+      dispatch(retrieveBooks({
+        url: `${URL}user-books`,
+        verb: 'POST',
+        data: { id },
+      }));
+    }
+
+    if (books.status === 'succeded' && books.books.length === 0 && localStorage.getItem('booksStoredNotFirstTime') === 'false') {
+      DEFAULT_BOOKS.forEach(async item => {
+        await dispatch(createBook({
+          id,
+          book: {
+            title: item.title,
+            category: item.category,
+            author: item.author,
+            completed: item.completed,
+          },
+        }));
+      });
+      localStorage.setItem('booksStoredNotFirstTime', true);
+    }
+  }, [books, URL, id]);
   console.log(errors);
 
   if (parseInt(id, 10)) {
@@ -43,17 +69,15 @@ const App = () => {
               </div>
             </div>
           </nav>
-          <div className="Error">
-            {displayErrors(errors)}
-          </div>
+          <div className="Error" />
           <Switch>
             <Route path="/categories">
-              <BookList />
-              <BookForm />
+              <BookList id={id} />
+              <BookForm id={id} />
             </Route>
             <Route path="/">
-              <All />
-              <BookForm />
+              <All id={id} />
+              <BookForm id={id} />
             </Route>
           </Switch>
         </BrowserRouter>

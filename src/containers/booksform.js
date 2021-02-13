@@ -6,6 +6,7 @@ import { FILTERS } from '../constants/constants';
 import CategoryFilter from '../components/categoryFilter';
 import { createBook } from '../actions/index';
 import displayErrors from '../helpers/helpers';
+import { removeError } from '../reducers/books';
 
 const BookForm = props => {
   const [state, setState] = useState({
@@ -14,42 +15,42 @@ const BookForm = props => {
     author: '',
     completed: 0,
   });
-  const { sendBook, errors } = props;
+  const {
+    sendBook, errors, cleanError, id,
+  } = props;
   useEffect(() => {
     if (errors) {
-      document.querySelector('.Error').classList += ' display-error';
-      document.querySelector('.Error').innerHTML += `/${displayErrors(errors)}`;
+      document.querySelector('.errorForm').classList += ' display-error';
+      displayErrors(errors, 'errorForm');
     }
   });
   const handleChange = e => {
     const { name, value } = e.target;
     setState({ ...state, [name]: value });
-    document.querySelector('.Error').classList.remove('display-error');
+    cleanError();
+    document.querySelector('.errorForm').classList.remove('display-error');
   };
   const handleSubmit = async e => {
     e.preventDefault();
     if (state.category !== 'Category' && state.title.length > 0) {
-      await sendBook({ id: localStorage.getItem('bookStoreUserId'), book: state });
+      await sendBook({ id, book: state });
       setState({
         title: '',
         category: FILTERS.category,
         author: '',
       });
       document.querySelector('input').value = '';
-      document.querySelector('.Error').classList.remove('display-error');
+      document.querySelector('.errorForm').classList.remove('display-error');
     } else {
-      document.querySelector('.Error').classList += ' display-error';
-      document.querySelector('.Error').innerHTML = `Please fill the form correctly /${displayErrors(errors)}`;
+      document.querySelector('.errorForm').classList += ' display-error';
+      document.querySelector('.errorForm').innerHTML = 'Please fill the form correctly';
     }
   };
   return (
     <div>
       <div className="layout form-container">
-        <div className="Error">
-          Please make sure to fill the form, errors:
-          {displayErrors(errors)}
-        </div>
         <h3 className="title-form">ADD NEW BOOK</h3>
+        <div className="Error errorForm" />
         <form onSubmit={handleSubmit}>
           <input type="text" onChange={handleChange} name="title" placeHolder="Book Title" />
           <CategoryFilter categories={FILTERS} handleSelectionCreation={handleChange} creation name="category" value={state.category} />
@@ -64,6 +65,8 @@ const BookForm = props => {
 BookForm.propTypes = {
   sendBook: PropTypes.func.isRequired,
   errors: PropTypes.objectOf(PropTypes.strings).isRequired,
+  cleanError: PropTypes.func.isRequired,
+  id: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -72,6 +75,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   sendBook: data => dispatch(createBook(data)),
+  cleanError: () => dispatch(removeError()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(BookForm);

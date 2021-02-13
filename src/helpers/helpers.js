@@ -1,11 +1,11 @@
-const displayErrors = errors => {
-  let str = 'Please fill the form correctly';
+const displayErrors = (errors, myClass) => {
+  let str = '';
   if (errors) {
     Object.keys(errors).forEach(prop => {
       str += `${prop}: ${errors[prop].toString()}`;
     });
   }
-  return str;
+  document.querySelector(`.${myClass}`).innerHTML = str;
 };
 
 export default displayErrors;

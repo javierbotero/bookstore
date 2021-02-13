@@ -16,6 +16,7 @@ const books = createSlice({
       reducer: (state, action) => state.splice(action.payload.index, 1),
       prepare: index => ({ payload: { index } }),
     },
+    removeError: state => { state.error = null; },
   },
   extraReducers: {
     [retrieveBooks.pending]: state => {
@@ -49,7 +50,7 @@ const books = createSlice({
   },
 });
 
-const { removeBook } = books.actions;
+const { removeBook, removeError } = books.actions;
 
 export default books.reducer;
-export { removeBook };
+export { removeBook, removeError };

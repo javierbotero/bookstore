@@ -8,17 +8,15 @@ import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import Form from './Form';
 import { URL } from '../constants/constants';
+import displayErrors from '../helpers/helpers';
 
 const Loggin = props => {
   const { setId } = props;
   const errors = useSelector(state => state.books.error);
-  const displayErrors = errors => {
-    let str = 'Please fill the form correctly';
-    if (errors) {
-      str += errors.toString();
-    }
-    return str;
-  };
+  if (errors) {
+    displayErrors(errors, 'logginError');
+  }
+
   return (
     <BrowserRouter>
       <nav>
@@ -32,9 +30,7 @@ const Loggin = props => {
           </div>
         </div>
       </nav>
-      <div className="Error">
-        {displayErrors(errors)}
-      </div>
+      <div className="Error logginError" />
       <Switch>
         <Route exact path="/">
           <p className="title">Loggin</p>
