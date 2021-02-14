@@ -51,11 +51,12 @@ const retrieveBooks = createAsyncThunk('retrieve', async ({ url, verb, data }) =
 });
 
 const updateBook = createAsyncThunk('update-book', async data => {
-  const init = initCreator('POST', data);
-  const response = fetch(`${URL}books`, init)
+  const init = initCreator('PUT', { book: data.book });
+  const response = await fetch(`${URL}books/${data.id}`, init)
     .then(data => data.json())
     .catch(error => error.json());
-  return response;
+  console.log(response);
+  return { reduxId: data.reduxId, response };
 });
 
 export {

@@ -49,7 +49,6 @@ const App = () => {
       localStorage.setItem('booksStoredNotFirstTime', true);
     }
   }, [books, URL, id]);
-  console.log(errors);
 
   if (parseInt(id, 10)) {
     return (

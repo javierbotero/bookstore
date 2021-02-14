@@ -4,7 +4,9 @@ import PropTypes from 'prop-types';
 import BookForm from '../containers/booksform';
 
 const Book = props => {
-  const { book, delBook, id } = props;
+  const {
+    book, delBook, id, reduxId,
+  } = props;
   const [hide, setHide] = useState(true);
   const toggleHide = () => setHide(!hide);
   const width = 80;
@@ -77,7 +79,7 @@ const Book = props => {
       </div>
       <div className={hide ? 'hide' : ''}>
         <div role="button" tabIndex="0" className="close" onClick={toggleHide} onKeyDown={toggleHide}>x</div>
-        <BookForm book={book} id={id} setHide={setHide} />
+        <BookForm book={book} id={id} toggleHide={toggleHide} reduxId={reduxId} bookId={book.id} />
       </div>
     </div>
   );
@@ -87,6 +89,7 @@ Book.propTypes = {
   book: PropTypes.objectOf(PropTypes.string).isRequired,
   delBook: PropTypes.func.isRequired,
   id: PropTypes.string.isRequired,
+  reduxId: PropTypes.number.isRequired,
 };
 
 export default Book;

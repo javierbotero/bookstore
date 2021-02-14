@@ -10,7 +10,9 @@ const All = props => {
   } = props;
   const result = [];
   books.books.filter(
-    (book, i) => result.push(<Book key={book.id} delBook={() => delBook(i)} book={book} id={id} />),
+    (book, i) => result.push(
+      <Book key={book.id} reduxId={i} delBook={delBook} book={book} id={id} />,
+    ),
   );
   return (
     <div>

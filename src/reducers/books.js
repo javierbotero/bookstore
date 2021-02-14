@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit';
-import { retrieveBooks, createBook } from '../actions/index';
+import { retrieveBooks, createBook, updateBook } from '../actions/index';
 
 const initialState = {
   books: [],
@@ -27,7 +27,6 @@ const books = createSlice({
       state.books = action.payload;
     },
     [retrieveBooks.rejected]: (state, action) => {
-      console.log(action.payload);
       state.status = 'failed';
       state.error = action.payload;
     },
@@ -46,6 +45,22 @@ const books = createSlice({
     [createBook.rejected]: (state, action) => {
       state.status = 'failed';
       state.error = action.payload;
+    },
+    [updateBook.pending]: state => {
+      state.status = 'Updating Book';
+    },
+    [updateBook.fulfilled]: (state, action) => {
+      if (action.payload.response.error) {
+        state.status = 'failed';
+        state.error = action.payload.response;
+      } else {
+        state.status = 'Book Updated';
+        state.books[action.payload.reduxId] = action.payload.response;
+      }
+    },
+    [updateBook.rejected]: (state, action) => {
+      state.status = 'failed';
+      state.error = action.payload.response;
     },
   },
 });
