@@ -10,7 +10,7 @@ import { removeError } from '../reducers/books';
 
 const BookForm = props => {
   const {
-    sendBook, editBook, errors, cleanError, id, book,
+    sendBook, editBook, errors, cleanError, id, book, setHide,
   } = props;
   const [state, setState] = useState({
     title: book ? book.title : '',
@@ -18,6 +18,8 @@ const BookForm = props => {
     author: book ? book.author : '',
     completed: book ? book.completed : 0,
   });
+  const myClasses = `Error ${book ? 'errorUpdate' : 'errorForm'}`;
+  let response;
   useEffect(() => {
     if (errors) {
       document.querySelector(book ? '.errorUpdate' : '.errorForm').classList += ' display-error';
@@ -35,7 +37,10 @@ const BookForm = props => {
     const form = document.querySelector(book ? '.errorUpdate' : '.errorForm');
     if (state.category !== 'Category' && state.title.length > 0) {
       if (book) {
-        await editBook({ id, book: state });
+        response = await editBook({ id, book: state });
+        if (!response.title) {
+          setHide(false);
+        }
       } else {
         await sendBook({ id, book: state });
       }
@@ -57,11 +62,11 @@ const BookForm = props => {
     <div>
       <div className="layout form-container">
         <h3 className="title-form">{book ? 'EDIT THE BOOK' : 'ADD NEW BOOK'}</h3>
-        <div className="Error errorForm" />
+        <div className={myClasses} />
         <form onSubmit={handleSubmit}>
-          <input type="text" onChange={handleChange} name="title" className={book ? 'editBook' : 'createBook'} placeHolder="Book Title" />
+          <input type="text" onChange={handleChange} value={book ? book.title : ''} name="title" className={book ? 'editBook' : 'createBook'} placeHolder="Book Title" />
           <CategoryFilter categories={FILTERS} handleSelectionCreation={handleChange} creation name="category" value={state.category} />
-          <input type="text" onChange={handleChange} name="author" className={book ? 'editBook' : 'createBook'} placeHolder="Author" />
+          <input type="text" onChange={handleChange} value={book ? book.author : ''} name="author" className={book ? 'editBook' : 'createBook'} placeHolder="Author" />
           <button className="Rectangle-2 Rectangle-3" type="submit">{book ? 'EDIT' : 'ADD NEW BOOK'}</button>
         </form>
       </div>
@@ -87,11 +92,13 @@ BookForm.propTypes = {
     }),
     PropTypes.bool,
   ]),
+  setHide: PropTypes.func,
 };
 
 BookForm.defaultProps = {
   book: false,
   errors: null,
+  setHide: false,
 };
 
 const mapStateToProps = state => ({

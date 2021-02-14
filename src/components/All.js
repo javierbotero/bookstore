@@ -6,11 +6,11 @@ import { removeBook } from '../reducers/books';
 
 const All = props => {
   const {
-    books, delBook,
+    books, delBook, id,
   } = props;
   const result = [];
   books.books.filter(
-    (book, i) => result.push(<Book key={book.id} delBook={() => delBook(i)} book={book} />),
+    (book, i) => result.push(<Book key={book.id} delBook={() => delBook(i)} book={book} id={id} />),
   );
   return (
     <div>
@@ -22,6 +22,7 @@ const All = props => {
 All.propTypes = {
   books: PropTypes.objectOf(PropTypes.string).isRequired,
   delBook: PropTypes.func.isRequired,
+  id: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = state => ({

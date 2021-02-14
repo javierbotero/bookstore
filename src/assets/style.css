@@ -285,6 +285,10 @@ p.Comments {
   padding: 0;
 }
 
+ul li.Comments {
+  cursor: pointer;
+}
+
 .title {
   width: 197px;
   margin: 3px 0;
@@ -389,6 +393,28 @@ p.Comments {
   width: 90%;
   margin: 0 auto;
   display: flex;
+}
+
+.hide {
+  display: none;
+}
+
+.close {
+  color: #2990ff;
+  font-size: 1.5em;
+  font-family: 'Monserrat', serif;
+  background-color: #FFF;
+  float: right;
+  position: relative;
+  right: 3em;
+  padding: 5px 13px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.close:hover {
+  background-color: #0290ff;
+  color: #FFF;
 }
 
 @media screen and (min-width: 500px) {
