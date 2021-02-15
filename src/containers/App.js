@@ -23,17 +23,17 @@ const App = () => {
   useEffect(() => {
     if (errors) {
       document.querySelector('.Error').classList += ' display-error';
-      displayErrors(errors, '#ErrorHeader');
+      if (id) {
+        displayErrors(errors, '#ErrorHeader');
+      } else {
+        displayErrors(errors, '.Error');
+      }
     } else {
       document.querySelector('.Error').classList.remove('display-error');
     }
 
-    if (books.status === 'idle') {
-      dispatch(retrieveBooks({
-        url: `${URL}user-books`,
-        verb: 'POST',
-        data: { id },
-      }));
+    if (id && books.status === 'idle') {
+      dispatch(retrieveBooks({ id }));
     }
 
     if (books.status === 'succeded' && books.books.length === 0 && localStorage.getItem('booksStoredNotFirstTime') === 'false') {

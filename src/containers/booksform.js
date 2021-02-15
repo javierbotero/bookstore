@@ -20,7 +20,6 @@ const BookForm = props => {
   });
   let errorForm;
   useEffect(() => {
-    console.log(book);
     errorForm = document.querySelector(book ? '.errorUpdate' : '.errorForm');
     if (errors) {
       displayErrors(errors, book ? '.errorUpdate' : '.errorForm');

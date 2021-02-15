@@ -24,9 +24,14 @@ const books = createSlice({
       state.status = 'loading';
     },
     [retrieveBooks.fulfilled]: (state, action) => {
-      state.status = 'succeded';
-      state.books = action.payload;
-      state.error = null;
+      if (action.payload.status === 404) {
+        state.status = 'failed';
+        state.error = action.payload;
+      } else {
+        state.status = 'succeded';
+        state.books = action.payload;
+        state.error = null;
+      }
     },
     [retrieveBooks.rejected]: (state, action) => {
       state.status = 'failed';

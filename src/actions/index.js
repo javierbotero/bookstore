@@ -34,9 +34,9 @@ const createBook = createAsyncThunk('create', async ({
   return response;
 });
 
-const retrieveBooks = createAsyncThunk('retrieve', async ({ url, verb, data }) => {
-  const init = initCreator(verb, data);
-  const response = await fetch(url, init)
+const retrieveBooks = createAsyncThunk('retrieve', async data => {
+  const init = initCreator('POST', data);
+  const response = await fetch(`${URL}user-books`, init)
     .then(data => data.json())
     .catch(error => error);
   return response;
