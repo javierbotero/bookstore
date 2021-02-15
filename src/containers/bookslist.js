@@ -23,13 +23,27 @@ const BooksList = props => {
     const result = [];
     if (localFilter === FILTERS.all) {
       books.books.forEach((item, i) => {
-        result.push(<Book key={item.id} book={item} delBook={() => handleRemoveBook(i)} id={id} />);
+        result.push(
+          <Book
+            key={item.id}
+            book={item}
+            delBook={() => handleRemoveBook(i)}
+            id={id}
+            reduxId={i}
+          />,
+        );
       });
     } else {
       books.books.forEach((item, i) => {
         if (item.category === localFilter) {
           result.push(
-            <Book key={item.id} book={item} delBook={() => handleRemoveBook(i)} id={id} />,
+            <Book
+              key={item.id}
+              book={item}
+              delBook={() => handleRemoveBook(i)}
+              id={id}
+              reduxId={i}
+            />,
           );
         }
       });
