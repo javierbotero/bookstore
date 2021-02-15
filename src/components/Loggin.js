@@ -46,7 +46,7 @@ const Loggin = props => {
 };
 
 Loggin.propTypes = {
-  setId: PropTypes.string.isRequired,
+  setId: PropTypes.func.isRequired,
 };
 
 export default Loggin;

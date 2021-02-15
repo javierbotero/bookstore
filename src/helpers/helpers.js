@@ -4,11 +4,15 @@ const div = myClass => document.querySelector(`${myClass}`);
 const displayErrors = (errors, myClass) => {
   let str = '';
   if (errors) {
-    Object.keys(errors).forEach(prop => {
-      if (prop !== 'traces') {
-        str += `${prop}: ${errors[prop].toString()}`;
-      }
-    });
+    if (Array.isArray(errors)) {
+      str += errors.join(', ').slice(0, -1);
+    } else {
+      Object.keys(errors).forEach(prop => {
+        if (prop !== 'traces') {
+          str += `${prop}: ${errors[prop].toString()}`;
+        }
+      });
+    }
   }
   div(myClass).innerHTML = str;
 };

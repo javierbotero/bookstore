@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import { initCreator } from '../actions/index';
+import displayErrors, { errorDiv } from '../helpers/helpers';
 
 const Form = props => {
   const { url, verb, setId } = props;
@@ -10,6 +11,7 @@ const Form = props => {
       password: document.getElementById('password').value,
     };
     let response;
+    const errDiv = errorDiv('.Error');
     const user = await fetch(url, initCreator(verb, data))
       .then(data => {
         response = data;
@@ -17,12 +19,13 @@ const Form = props => {
       })
       .catch(error => error);
     if (response.status === 200) {
-      document.querySelector('.Error').classList.remove('display-error');
+      errDiv.classList.remove('display-error');
       localStorage.setItem('bookStoreUserId', user.id);
       localStorage.setItem('booksStoredNotFirstTime', false);
       setId(user.id);
     } else {
-      document.querySelector('.Error').classList += ' display-error';
+      errDiv.classList += ' display-error';
+      displayErrors(user, '.Error');
       document.getElementById('email').value = '';
       document.getElementById('password').value = '';
     }
