@@ -1,4 +1,4 @@
-const errorDiv = () => document.querySelector('.Error');
+const errorDiv = str => document.querySelector(str);
 const div = myClass => document.querySelector(`${myClass}`);
 
 const displayErrors = (errors, myClass) => {
@@ -11,7 +11,6 @@ const displayErrors = (errors, myClass) => {
     });
   }
   div(myClass).innerHTML = str;
-  console.log(div(myClass));
 };
 
 export default displayErrors;

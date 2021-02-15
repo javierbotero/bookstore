@@ -46,10 +46,10 @@ const Book = props => {
     setProgress(e.target.value);
   };
   const handleDelete = async () => {
-    const data = { reduxId, id };
+    const data = { reduxId, id: book.id };
     const action = await deleteBook(data);
     if (action.payload.response.data) {
-      errorDiv().classList.remove('display-error');
+      errorDiv('.Error').classList.remove('display-error');
     }
   };
 
