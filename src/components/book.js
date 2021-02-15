@@ -1,13 +1,20 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import React, { useState } from 'react';
+import { useSelector, connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import BookForm from '../containers/booksform';
+import { updateBook } from '../actions/index';
+import displayErrors from '../helpers/helpers';
 
 const Book = props => {
   const {
-    book, delBook, id, reduxId,
+    book, delBook, id, reduxId, changeBook,
   } = props;
   const [hide, setHide] = useState(true);
+  const [hideFormProgress, setHideFormProgress] = useState(true);
+  const [progress, setProgress] = useState(book.completed);
+  const [error, setError] = useState(false);
+  const toogleHideFormProgress = () => setHideFormProgress(!hideFormProgress);
   const toggleHide = () => setHide(!hide);
   const width = 80;
   const height = 80;
@@ -16,6 +23,30 @@ const Book = props => {
   const circumference = radius * 2 * Math.PI;
   const strCircumference = `${circumference} ${circumference}`;
   const completed = circumference - ((circumference / 100) * book.completed);
+  const sendProgress = async e => {
+    e.preventDefault();
+    const data = {
+      reduxId,
+      id: book.id,
+      book: {
+        ...book,
+        completed: progress,
+      },
+    };
+    const response = await changeBook(data);
+    console.log(response);
+    if (response.payload.response.title) {
+      toogleHideFormProgress();
+    } else {
+      setError(useSelector(state => state.books.error));
+      displayErrors(error, 'updateProgress');
+    }
+  };
+  const updateProgress = e => {
+    setError(false);
+    setProgress(e.target.value);
+  };
+
   return (
     <div>
       <div className="book-container">
@@ -77,7 +108,12 @@ const Book = props => {
         <div className="book-child">
           <h5 className="Current-Chapter ">CURRENT CHAPTER</h5>
           <p className="Current-Lesson">Introduction</p>
-          <button type="button" className="Rectangle-2"><span className="Update-progress">UPDATE PROGRESS</span></button>
+          <button type="button" className="Rectangle-2" onClick={toogleHideFormProgress}><span className="Update-progress">UPDATE PROGRESS</span></button>
+          <form className={`updateProgress ${hideFormProgress ? 'hide' : ''}`} onSubmit={sendProgress}>
+            <div className={`Error ${error ? '' : 'hide'}`} />
+            <input type="text" value={progress} onChange={updateProgress} />
+            <input className="Rectangle-2 Update-progress" type="submit" value="Send" />
+          </form>
         </div>
       </div>
       <div className={hide ? 'hide' : ''}>
@@ -93,6 +129,11 @@ Book.propTypes = {
   delBook: PropTypes.func.isRequired,
   id: PropTypes.string.isRequired,
   reduxId: PropTypes.number.isRequired,
+  changeBook: PropTypes.func.isRequired,
 };
 
-export default Book;
+const mapDispatchToProps = dispatch => ({
+  changeBook: data => dispatch(updateBook(data)),
+});
+
+export default connect(null, mapDispatchToProps)(Book);

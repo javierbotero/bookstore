@@ -55,7 +55,9 @@ const books = createSlice({
         state.error = action.payload.response;
       } else {
         state.status = 'Book Updated';
-        state.books[action.payload.reduxId] = action.payload.response;
+        const newArr = [...state.books];
+        newArr[action.payload.reduxId] = action.payload.response;
+        state.books = newArr;
       }
     },
     [updateBook.rejected]: (state, action) => {
