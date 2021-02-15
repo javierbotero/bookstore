@@ -13,6 +13,7 @@ import All from '../components/All';
 import Loggin from '../components/Loggin';
 import userImage from '../assets/images/user-icon.png';
 import { DEFAULT_BOOKS, URL } from '../constants/constants';
+import displayErrors from '../helpers/helpers';
 
 const App = () => {
   const [id, setId] = useState(localStorage.getItem('bookStoreUserId'));
@@ -22,6 +23,7 @@ const App = () => {
   useEffect(() => {
     if (errors) {
       document.querySelector('.Error').classList += ' display-error';
+      displayErrors(errors, '#ErrorHeader');
     } else {
       document.querySelector('.Error').classList.remove('display-error');
     }
@@ -68,7 +70,7 @@ const App = () => {
               </div>
             </div>
           </nav>
-          <div className="Error" />
+          <div className="Error" id="ErrorHeader" />
           <Switch>
             <Route path="/categories">
               <BookList id={id} />

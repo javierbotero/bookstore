@@ -14,7 +14,7 @@ const Loggin = props => {
   const { setId } = props;
   const errors = useSelector(state => state.books.error);
   if (errors) {
-    displayErrors(errors, 'logginError');
+    displayErrors(errors, '.logginError');
   }
 
   return (

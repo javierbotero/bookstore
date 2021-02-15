@@ -3,12 +3,12 @@ import React, { useState } from 'react';
 import { useSelector, connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import BookForm from '../containers/booksform';
-import { updateBook } from '../actions/index';
-import displayErrors from '../helpers/helpers';
+import { removeBook, updateBook } from '../actions/index';
+import displayErrors, { errorDiv } from '../helpers/helpers';
 
 const Book = props => {
   const {
-    book, delBook, id, reduxId, changeBook,
+    book, id, reduxId, changeBook, deleteBook,
   } = props;
   const [hide, setHide] = useState(true);
   const [hideFormProgress, setHideFormProgress] = useState(true);
@@ -34,17 +34,23 @@ const Book = props => {
       },
     };
     const response = await changeBook(data);
-    console.log(response);
     if (response.payload.response.title) {
       toogleHideFormProgress();
     } else {
       setError(useSelector(state => state.books.error));
-      displayErrors(error, 'updateProgress');
+      displayErrors(error, '.updateProgress');
     }
   };
   const updateProgress = e => {
     setError(false);
     setProgress(e.target.value);
+  };
+  const handleDelete = async () => {
+    const data = { reduxId, id };
+    const action = await deleteBook(data);
+    if (action.payload.response.data) {
+      errorDiv().classList.remove('display-error');
+    }
   };
 
   return (
@@ -56,7 +62,7 @@ const Book = props => {
           <p className="Comments">{book.author}</p>
           <ul className="links">
             <li className="Comments">Comments</li>
-            <li className="Comments" onClick={book => delBook(book)} onKeyPress={book => delBook(book)}>Remove</li>
+            <li className="Comments" onClick={handleDelete} onKeyPress={handleDelete}>Remove</li>
             <li className="Comments" onClick={toggleHide} onKeyDown={toggleHide}>Edit</li>
           </ul>
         </div>
@@ -126,14 +132,22 @@ const Book = props => {
 
 Book.propTypes = {
   book: PropTypes.objectOf(PropTypes.string).isRequired,
-  delBook: PropTypes.func.isRequired,
   id: PropTypes.string.isRequired,
   reduxId: PropTypes.number.isRequired,
   changeBook: PropTypes.func.isRequired,
+  deleteBook: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = state => {
+  const { errors } = state.books;
+  return {
+    errors,
+  };
 };
 
 const mapDispatchToProps = dispatch => ({
   changeBook: data => dispatch(updateBook(data)),
+  deleteBook: data => dispatch(removeBook(data)),
 });
 
-export default connect(null, mapDispatchToProps)(Book);
+export default connect(mapStateToProps, mapDispatchToProps)(Book);

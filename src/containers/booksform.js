@@ -22,7 +22,7 @@ const BookForm = props => {
   useEffect(() => {
     errorForm = document.querySelector(book ? '.errorUpdate' : '.errorForm');
     if (errors) {
-      displayErrors(errors, book ? 'errorUpdate' : 'errorForm');
+      displayErrors(errors, book ? '.errorUpdate' : '.errorForm');
     }
   });
   const handleChange = e => {
@@ -36,7 +36,7 @@ const BookForm = props => {
     if (state.category !== 'Category' && state.title.length > 0) {
       if (book) {
         const action = await editBook({ reduxId, id: bookId, book: state });
-        if (action.type === 'update-book/fulfilled') {
+        if (action.payload.response.title) {
           toggleHide(false);
         }
       } else {

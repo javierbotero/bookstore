@@ -50,6 +50,14 @@ const updateBook = createAsyncThunk('update-book', async data => {
   return { reduxId: data.reduxId, response };
 });
 
+const removeBook = createAsyncThunk('remove-book', async data => {
+  const init = initCreator('DELETE', {});
+  const response = await fetch(`${URL}books/${data.id}`, init)
+    .then(data => data.json())
+    .catch(error => error.json());
+  return { reduxId: data.reduxId, response };
+});
+
 export {
   setCategory,
   CHANGE_FILTER,
@@ -57,4 +65,5 @@ export {
   retrieveBooks,
   createBook,
   updateBook,
+  removeBook,
 };

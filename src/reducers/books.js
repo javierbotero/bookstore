@@ -1,6 +1,11 @@
 /* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit';
-import { retrieveBooks, createBook, updateBook } from '../actions/index';
+import {
+  retrieveBooks,
+  createBook,
+  updateBook,
+  removeBook,
+} from '../actions/index';
 
 const initialState = {
   books: [],
@@ -12,10 +17,6 @@ const books = createSlice({
   name: 'books',
   initialState,
   reducers: {
-    removeBook: {
-      reducer: (state, action) => state.splice(action.payload.index, 1),
-      prepare: index => ({ payload: { index } }),
-    },
     removeError: state => { state.error = null; },
   },
   extraReducers: {
@@ -25,6 +26,7 @@ const books = createSlice({
     [retrieveBooks.fulfilled]: (state, action) => {
       state.status = 'succeded';
       state.books = action.payload;
+      state.error = null;
     },
     [retrieveBooks.rejected]: (state, action) => {
       state.status = 'failed';
@@ -37,6 +39,7 @@ const books = createSlice({
       if (action.payload.title) {
         state.status = 'Book Uploaded';
         state.books.push(action.payload);
+        state.error = null;
       } else {
         state.status = 'failed';
         state.error = action.payload;
@@ -50,7 +53,7 @@ const books = createSlice({
       state.status = 'Updating Book';
     },
     [updateBook.fulfilled]: (state, action) => {
-      if (action.payload.response.error) {
+      if (!action.payload.response.title) {
         state.status = 'failed';
         state.error = action.payload.response;
       } else {
@@ -58,16 +61,31 @@ const books = createSlice({
         const newArr = [...state.books];
         newArr[action.payload.reduxId] = action.payload.response;
         state.books = newArr;
+        state.error = null;
       }
     },
     [updateBook.rejected]: (state, action) => {
       state.status = 'failed';
       state.error = action.payload.response;
     },
+    [removeBook.pending]: state => { state.status = 'Pending Deletion Book'; },
+    [removeBook.fulfilled]: (state, action) => {
+      if (action.payload.response.data === 'Book destroyed') {
+        state.books.splice(action.payload.reduxId, 1);
+        state.error = null;
+      } else {
+        state.status = 'Failed deletion book';
+        state.error = action.payload.response;
+      }
+    },
+    [removeBook.rejected]: (state, action) => {
+      state.status = 'failed removing book';
+      state.error = action.payload.response;
+    },
   },
 });
 
-const { removeBook, removeError } = books.actions;
+const { removeError } = books.actions;
 
 export default books.reducer;
 export { removeBook, removeError };
