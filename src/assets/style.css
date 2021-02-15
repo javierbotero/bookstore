@@ -417,6 +417,21 @@ ul li.Comments {
   color: #FFF;
 }
 
+.loading {
+  position: absolute;
+  left: 10%;
+  z-index: 1;
+  text-align: center;
+  padding-top: 3em;
+  width: 80%;
+  height: 15%;
+  margin: 37px auto;
+  border-radius: 4px;
+  background-color: #0290ff;
+  color: #fff;
+  font: 1.5em 'Roboto Slab', serif;
+}
+
 @media screen and (min-width: 500px) {
   .book-container,
   .flex-x,

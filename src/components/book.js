@@ -4,7 +4,7 @@ import { useSelector, connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import BookForm from '../containers/booksform';
 import { removeBook, updateBook } from '../actions/index';
-import displayErrors, { errorDiv } from '../helpers/helpers';
+import displayErrors, { div } from '../helpers/helpers';
 
 const Book = props => {
   const {
@@ -49,7 +49,7 @@ const Book = props => {
     const data = { reduxId, id: book.id };
     const action = await deleteBook(data);
     if (action.payload.response.data) {
-      errorDiv('.Error').classList.remove('display-error');
+      div('.Error').classList.remove('display-error');
     }
   };
 

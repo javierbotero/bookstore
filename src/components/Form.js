@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { initCreator } from '../actions/index';
-import displayErrors, { errorDiv } from '../helpers/helpers';
+import displayErrors, { div } from '../helpers/helpers';
 
 const Form = props => {
   const { url, verb, setId } = props;
@@ -11,7 +11,7 @@ const Form = props => {
       password: document.getElementById('password').value,
     };
     let response;
-    const errDiv = errorDiv('.Error');
+    const errDiv = div('.Error');
     const user = await fetch(url, initCreator(verb, data))
       .then(data => {
         response = data;

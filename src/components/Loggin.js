@@ -31,6 +31,7 @@ const Loggin = props => {
         </div>
       </nav>
       <div className="Error logginError" />
+      <div className="loading">Loading... the dyno is just waking up :)</div>
       <Switch>
         <Route exact path="/">
           <p className="title">Loggin</p>

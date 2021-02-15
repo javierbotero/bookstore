@@ -1,5 +1,4 @@
-const errorDiv = str => document.querySelector(str);
-const div = myClass => document.querySelector(`${myClass}`);
+const div = str => document.querySelector(str);
 
 const displayErrors = (errors, myClass) => {
   let str = '';
@@ -18,4 +17,4 @@ const displayErrors = (errors, myClass) => {
 };
 
 export default displayErrors;
-export { errorDiv };
+export { div };
