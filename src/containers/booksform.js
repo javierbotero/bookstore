@@ -22,7 +22,6 @@ const BookForm = props => {
   useEffect(() => {
     errorForm = document.querySelector(book ? '.errorUpdate' : '.errorForm');
     if (errors) {
-      errorForm.classList += ' display-error';
       displayErrors(errors, book ? 'errorUpdate' : 'errorForm');
     }
   });
@@ -51,7 +50,6 @@ const BookForm = props => {
           });
         }
       }
-      errorForm.classList.remove('display-error');
     } else {
       errorForm.classList += ' display-error';
       errorForm.innerHTML = 'Please fill the form correctly';
@@ -61,7 +59,7 @@ const BookForm = props => {
     <div>
       <div className="layout form-container">
         <h3 className="title-form">{book ? 'EDIT THE BOOK' : 'ADD NEW BOOK'}</h3>
-        <div className={`Error ${book ? 'errorUpdate' : 'errorForm'}`} />
+        <div className={`Error ${book ? 'errorUpdate' : 'errorForm'} ${errors ? 'display-error' : ''}`} />
         <form onSubmit={handleSubmit}>
           <input type="text" onChange={handleChange} value={state.title} name="title" className={book ? 'editBook' : 'createBook'} placeHolder="Book Title" />
           <CategoryFilter categories={FILTERS} handleSelectionCreation={handleChange} creation name="category" value={state.category} />
