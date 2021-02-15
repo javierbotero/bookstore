@@ -20,6 +20,7 @@ const BookForm = props => {
   });
   let errorForm;
   useEffect(() => {
+    console.log(book);
     errorForm = document.querySelector(book ? '.errorUpdate' : '.errorForm');
     if (errors) {
       displayErrors(errors, book ? '.errorUpdate' : '.errorForm');
@@ -35,7 +36,14 @@ const BookForm = props => {
     e.preventDefault();
     if (state.category !== 'Category' && state.title.length > 0) {
       if (book) {
-        const action = await editBook({ reduxId, id: bookId, book: state });
+        const action = await editBook({
+          reduxId,
+          id: bookId,
+          book: {
+            ...state,
+            completed: book.completed,
+          },
+        });
         if (action.payload.response.title) {
           toggleHide(false);
         }
