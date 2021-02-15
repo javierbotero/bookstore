@@ -26,15 +26,7 @@ const initCreator = (verb, data) => ({
 const createBook = createAsyncThunk('create', async ({
   book, id,
 }) => {
-  const data = {
-    id,
-    book: {
-      title: book.title,
-      category: book.category,
-      author: book.author,
-      completed: book.completed,
-    },
-  };
+  const data = { id, book };
   const init = initCreator('POST', data);
   const response = await fetch(`${URL}books`, init)
     .then(data => data.json())
@@ -55,7 +47,6 @@ const updateBook = createAsyncThunk('update-book', async data => {
   const response = await fetch(`${URL}books/${data.id}`, init)
     .then(data => data.json())
     .catch(error => error.json());
-  console.log(response);
   return { reduxId: data.reduxId, response };
 });
 

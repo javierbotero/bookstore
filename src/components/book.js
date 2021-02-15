@@ -22,7 +22,7 @@ const Book = props => {
         <div className="book-child">
           <p className="School-of">{book.category}</p>
           <h4 className="title">{book.title}</h4>
-          <p className="Comments">Jhon Doe</p>
+          <p className="Comments">{book.author}</p>
           <ul className="links">
             <li className="Comments">Comments</li>
             <li className="Comments" onClick={book => delBook(book)} onKeyPress={book => delBook(book)}>Remove</li>
@@ -67,7 +67,10 @@ const Book = props => {
             />
           </svg>
           <div className="records-numbers">
-            <h4>68%</h4>
+            <h4>
+              {book.completed}
+              %
+            </h4>
             <p>Completed</p>
           </div>
         </div>

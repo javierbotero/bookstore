@@ -19,10 +19,8 @@ const BookForm = props => {
     completed: book ? book.completed : 0,
   });
   let errorForm;
-  let inputs;
   useEffect(() => {
     errorForm = document.querySelector(book ? '.errorUpdate' : '.errorForm');
-    inputs = document.getElementsByClassName(book ? 'editBook' : 'createBook');
     if (errors) {
       errorForm.classList += ' display-error';
       displayErrors(errors, book ? 'errorUpdate' : 'errorForm');
@@ -43,16 +41,15 @@ const BookForm = props => {
           toggleHide(false);
         }
       } else {
-        await sendBook({ id, book: state });
-      }
-      if (!book) {
-        setState({
-          title: '',
-          category: FILTERS.category,
-          author: '',
-        });
-        // eslint-disable-next-line no-param-reassign
-        inputs.forEach(el => { el.value = ''; });
+        const action = await sendBook({ id, book: state });
+        if (action.payload.title) {
+          setState({
+            title: '',
+            category: FILTERS.category,
+            author: '',
+            completed: 0,
+          });
+        }
       }
       errorForm.classList.remove('display-error');
     } else {
@@ -66,9 +63,9 @@ const BookForm = props => {
         <h3 className="title-form">{book ? 'EDIT THE BOOK' : 'ADD NEW BOOK'}</h3>
         <div className={`Error ${book ? 'errorUpdate' : 'errorForm'}`} />
         <form onSubmit={handleSubmit}>
-          <input type="text" onChange={handleChange} value={book ? state.title : ''} name="title" className={book ? 'editBook' : 'createBook'} placeHolder="Book Title" />
+          <input type="text" onChange={handleChange} value={state.title} name="title" className={book ? 'editBook' : 'createBook'} placeHolder="Book Title" />
           <CategoryFilter categories={FILTERS} handleSelectionCreation={handleChange} creation name="category" value={state.category} />
-          <input type="text" onChange={handleChange} value={book ? state.author : ''} name="author" className={book ? 'editBook' : 'createBook'} placeHolder="Author" />
+          <input type="text" onChange={handleChange} value={state.author} name="author" className={book ? 'editBook' : 'createBook'} placeHolder="Author" />
           <button className="Rectangle-2 Rectangle-3" type="submit">{book ? 'EDIT' : 'ADD NEW BOOK'}</button>
         </form>
       </div>
