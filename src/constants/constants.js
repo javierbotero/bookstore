@@ -29,18 +29,6 @@ const DEFAULT_BOOKS = [
     author: 'Stephen King',
     completed: 70,
   },
-  {
-    title: 'The Little Prince',
-    category: FILTERS.kids,
-    author: 'Antoine de Saint-Exupéry',
-    completed: 70,
-  },
-  {
-    title: 'The Invation',
-    category: FILTERS.scifi,
-    author: 'Jhon Doe',
-    completed: 70,
-  },
 ];
 const CATEGORIES = ['Action', 'Biography', 'History', 'Horror', 'Kids', 'Learning', 'Sci-Fi'];
 const URL = 'http://localhost:3000/';

@@ -23,7 +23,7 @@ const App = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     const loading = div('.loading');
-    console.log(loading, status);
+    const errorDiv = div('.Error');
     if (status === 'loading'
     || status === 'Uploading'
     || status === 'Updating Book'
@@ -33,14 +33,14 @@ const App = () => {
       loading.classList.add('hide');
     }
     if (errors) {
-      document.querySelector('.Error').classList += ' display-error';
+      errorDiv.classList += ' display-error';
       if (id) {
         displayErrors(errors, '#ErrorHeader');
       } else {
         displayErrors(errors, '.Error');
       }
     } else {
-      document.querySelector('.Error').classList.remove('display-error');
+      errorDiv.classList.remove('display-error');
     }
 
     if (id && books.status === 'idle') {
@@ -49,7 +49,7 @@ const App = () => {
 
     if (books.status === 'succeded' && books.books.length === 0 && localStorage.getItem('booksStoredNotFirstTime') === 'false') {
       DEFAULT_BOOKS.forEach(async item => {
-        await dispatch(createBook({
+        setTimeout(await dispatch(createBook({
           id,
           book: {
             title: item.title,
@@ -57,7 +57,8 @@ const App = () => {
             author: item.author,
             completed: item.completed,
           },
-        }));
+        })),
+        200);
       });
       localStorage.setItem('booksStoredNotFirstTime', true);
     }
