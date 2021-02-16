@@ -77,6 +77,7 @@ const books = createSlice({
     [removeBook.fulfilled]: (state, action) => {
       if (action.payload.response.data === 'Book destroyed') {
         state.books.splice(action.payload.reduxId, 1);
+        state.status = 'Book Deleted';
         state.error = null;
       } else {
         state.status = 'Failed deletion book';
