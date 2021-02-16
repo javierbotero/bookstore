@@ -34,7 +34,7 @@ const Loggin = props => {
       <div className="loading">Loading... the dyno is just waking up :)</div>
       <Switch>
         <Route exact path="/">
-          <p className="title">Loggin</p>
+          <p className="title">Sign in</p>
           <Form verb="POST" url={`${URL}loggin`} setId={setId} />
         </Route>
         <Route exact path="/signup">

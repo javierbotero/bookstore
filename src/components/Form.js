@@ -26,8 +26,8 @@ const Form = props => {
     } else {
       errDiv.classList += ' display-error';
       displayErrors(user, '.Error');
-      document.getElementById('email').value = '';
-      document.getElementById('password').value = '';
+      div('#email').value = '';
+      div('#password').value = '';
     }
   };
 
