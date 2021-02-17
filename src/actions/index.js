@@ -58,6 +58,38 @@ const removeBook = createAsyncThunk('remove-book', async data => {
   return { reduxId: data.reduxId, response };
 });
 
+const retrieveComments = createAsyncThunk('retrieve-comments', async id => {
+  const init = initCreator('POST', {});
+  const response = await fetch(`${URL}comments/${id}`, init)
+    .then(data => data.json())
+    .catch(error => error.json());
+  return response;
+});
+
+const createComment = createAsyncThunk('create-comment', async data => {
+  const init = initCreator('POST', data.item);
+  const response = await fetch(`${URL}comments`, init)
+    .then(data => data.json())
+    .then(error => error.json());
+  return { reduxId: data.reduxId, response };
+});
+
+const updateComment = createAsyncThunk('update-comment', async data => {
+  const init = initCreator('PUT', data.item);
+  const response = await fetch(`${URL}comments/${data.id}`, init)
+    .then(data => data.json())
+    .then(error => error.json());
+  return { reduxId: data.reduxId, response };
+});
+
+const destroyComment = createAsyncThunk('destroy-comment', async data => {
+  const init = initCreator('DELETE', {});
+  const response = fetch(`${URL}comments/${data.id}`, init)
+    .then(data => data.json())
+    .then(error => error.json());
+  return { reduxId: data.reduxId, reduxCommentId: data.reduxCommentId, response };
+});
+
 export {
   setCategory,
   CHANGE_FILTER,
@@ -66,4 +98,8 @@ export {
   createBook,
   updateBook,
   removeBook,
+  retrieveComments,
+  createComment,
+  updateComment,
+  destroyComment,
 };

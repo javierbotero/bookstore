@@ -68,9 +68,9 @@ const BookForm = props => {
         <h3 className="title-form">{book ? 'EDIT THE BOOK' : 'ADD NEW BOOK'}</h3>
         <div className={`Error ${book ? 'errorUpdate' : 'errorForm'} ${errors ? 'display-error' : ''}`} />
         <form onSubmit={handleSubmit}>
-          <input type="text" onChange={handleChange} value={state.title} name="title" className={book ? 'editBook' : 'createBook'} placeHolder="Book Title" />
+          <input type="text" onChange={handleChange} value={state.title} name="title" className={book ? 'editBook' : 'createBook'} placeholder="Book Title" />
           <CategoryFilter categories={FILTERS} handleSelectionCreation={handleChange} creation name="category" value={state.category} />
-          <input type="text" onChange={handleChange} value={state.author} name="author" className={book ? 'editBook' : 'createBook'} placeHolder="Author" />
+          <input type="text" onChange={handleChange} value={state.author} name="author" className={book ? 'editBook' : 'createBook'} placeholder="Author" />
           <button className="Rectangle-2 Rectangle-3" type="submit">{book ? 'EDIT' : 'ADD NEW BOOK'}</button>
         </form>
       </div>

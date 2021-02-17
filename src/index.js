@@ -5,10 +5,12 @@ import { Provider } from 'react-redux';
 import App from './containers/App';
 import './assets/style.css';
 import books from './reducers/books';
+import comments from './reducers/comments';
 import category from './reducers/filter';
 
 const store = configureStore({
   reducer: {
+    comments,
     books,
     category,
   },
