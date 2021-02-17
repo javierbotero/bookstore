@@ -8,6 +8,7 @@ import {
   removeBook,
   updateBook,
   retrieveComments,
+  createComment,
 } from '../actions/index';
 import displayErrors, { div } from '../helpers/helpers';
 
@@ -20,6 +21,7 @@ const Book = props => {
     deleteBook,
     getComments,
     comments,
+    sendToApiComment,
   } = props;
   const [hide, setHide] = useState(true);
   const [hideFormProgress, setHideFormProgress] = useState(true);
@@ -27,7 +29,7 @@ const Book = props => {
   const [error, setError] = useState(false);
   const [hideComments, setHideComments] = useState(true);
   const [requestComments, setRequestComments] = useState(true);
-  const [commentElements, setCommentElements] = useState([]);
+  const [hideFormAddComment, setHideFormAddComment] = useState(true);
   const toogleHideFormProgress = () => setHideFormProgress(!hideFormProgress);
   const toggleHide = () => setHide(!hide);
   const width = 80;
@@ -80,15 +82,37 @@ const Book = props => {
         })
         .catch(error => error);
     }
-
-    const elements = [];
-    if (comments[reduxId]) {
-      comments[reduxId].forEach((cmt, i) => {
-        elements.push(<Comment reduxId={reduxId} reduxCommentId={i} comment={cmt} />);
-      });
+  };
+  const toggleFormAddComment = () => { setHideFormAddComment(!hideFormAddComment); };
+  const sendNewComment = async e => {
+    e.preventDefault();
+    const data = {
+      reduxId,
+      item: {
+        id: book.id,
+        body: e.target.querySelector('.send-input').value,
+      },
+    };
+    await sendToApiComment(data)
+      .then(data => {
+        toggleFormAddComment();
+        e.target.value = '';
+        console.log(data);
+        return data;
+      })
+      .catch(err => err);
+  };
+  const displayComments = () => {
+    let result = 'No comments yet';
+    if (comments[reduxId] && comments[reduxId].length > 0) {
+      result = [];
+      if (comments[reduxId].length > 0) {
+        comments[reduxId].filter((cmt, i) => result.push(
+          <Comment reduxId={reduxId} reduxCommentId={i} comment={cmt} />,
+        ));
+      }
     }
-
-    setCommentElements([...elements]);
+    return result;
   };
 
   return (
@@ -162,9 +186,12 @@ const Book = props => {
       </div>
       <div className={`book-comments layout ${hideComments ? 'hide' : ''}`}>
         <div role="button" tabIndex="0" className="close" onClick={toggleComments} onKeyDown={toggleComments}>x</div>
-        <div className="list-comments">
-          {commentElements.length > 0 ? commentElements : 'No comments'}
-        </div>
+        <div className="list-comments">{displayComments()}</div>
+        <button className="Rectangle-2 add-comment" type="button" onClick={toggleFormAddComment}>Add a comment</button>
+        <form className={`${hideFormAddComment ? 'hide' : ''}`} onSubmit={sendNewComment}>
+          <input type="text" className="send-input" placeholder="Write your comment..." />
+          <input type="submit" value="submit" />
+        </form>
       </div>
       <div className={hide ? 'hide' : ''}>
         <div role="button" tabIndex="0" className="close" onClick={toggleHide} onKeyDown={toggleHide}>x</div>
@@ -182,6 +209,7 @@ Book.propTypes = {
   deleteBook: PropTypes.func.isRequired,
   getComments: PropTypes.func.isRequired,
   comments: PropTypes.node.isRequired,
+  sendToApiComment: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => {
@@ -197,6 +225,7 @@ const mapDispatchToProps = dispatch => ({
   changeBook: data => dispatch(updateBook(data)),
   deleteBook: data => dispatch(removeBook(data)),
   getComments: data => dispatch(retrieveComments(data)),
+  sendToApiComment: data => dispatch(createComment(data)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Book);

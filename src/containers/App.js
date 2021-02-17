@@ -14,6 +14,8 @@ import Loggin from '../components/Loggin';
 import userImage from '../assets/images/user-icon.png';
 import { DEFAULT_BOOKS, URL } from '../constants/constants';
 import displayErrors, { div } from '../helpers/helpers';
+import { removeError } from '../reducers/books';
+import { removeErrorComments } from '../reducers/comments';
 
 const App = () => {
   const [id, setId] = useState(localStorage.getItem('bookStoreUserId'));
@@ -35,26 +37,22 @@ const App = () => {
     } else {
       loading.classList.add('hide');
     }
-    if (errors) {
+
+    if (errors || errorComments) {
       errorDiv.classList += ' display-error';
       if (id) {
         displayErrors(errors, '#ErrorHeader');
-      } else {
-        displayErrors(errors, '.Error');
-      }
-    } else {
-      errorDiv.classList.remove('display-error');
-    }
-
-    if (errorComments) {
-      errorDiv.classList += ' display-error';
-      if (id) {
         displayErrors(errorComments, '#ErrorHeader');
       } else {
+        displayErrors(errors, '.Error');
         displayErrors(errorComments, '.Error');
       }
+      removeError();
+      removeErrorComments();
     } else {
       errorDiv.classList.remove('display-error');
+      div('#ErrorHeader').innerHTMl = '';
+      div('.Error').innerHTMl = '';
     }
 
     if (id && books.status === 'idle') {

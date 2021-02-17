@@ -94,4 +94,4 @@ const books = createSlice({
 const { removeError } = books.actions;
 
 export default books.reducer;
-export { removeBook, removeError };
+export { removeError };

@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Book from './book';
-import { removeBook } from '../reducers/books';
+import { removeBook } from '../actions/index';
 
 const All = props => {
   const {

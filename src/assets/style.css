@@ -440,10 +440,18 @@ ul li.Comments {
   background-color: #0290ff;
   color: #fff;
   font: 1.5em 'Roboto Slab', serif;
+  text-align: center;
 }
 
 .list-comments {
   padding: 0.5em;
+}
+
+.add-comment {
+  background-color: #fff;
+  color: #0290ff;
+  width: 50%;
+  margin: 0 auto;
 }
 
 @media screen and (min-width: 500px) {
