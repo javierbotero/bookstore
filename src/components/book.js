@@ -3,10 +3,10 @@ import React, { useState } from 'react';
 import { useSelector, connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import BookForm from '../containers/booksform';
+import Comment from './comment';
 import {
   removeBook,
   updateBook,
-  retrieveBooks,
   retrieveComments,
 } from '../actions/index';
 import displayErrors, { div } from '../helpers/helpers';
@@ -27,6 +27,7 @@ const Book = props => {
   const [error, setError] = useState(false);
   const [hideComments, setHideComments] = useState(true);
   const [requestComments, setRequestComments] = useState(true);
+  const [commentElements, setCommentElements] = useState([]);
   const toogleHideFormProgress = () => setHideFormProgress(!hideFormProgress);
   const toggleHide = () => setHide(!hide);
   const width = 80;
@@ -68,21 +69,26 @@ const Book = props => {
   const toggleComments = () => setHideComments(!hideComments);
   const showComments = async () => {
     toggleComments();
-    let localComments;
     if (requestComments) {
-      localComments = await getComments(book.id);
-      console.log(localComments);
-      setRequestComments(false);
-    } else {
-      localComments = comments;
+      await getComments({
+        id: book.id,
+        reduxId,
+      })
+        .then(data => {
+          setRequestComments(false);
+          return data;
+        })
+        .catch(error => error);
     }
 
-    let str = '';
-    localComments.forEach(cmt, i => {
-      str += i === localComments.length - 1 ? cmt.body;
-    });
+    const elements = [];
+    if (comments[reduxId]) {
+      comments[reduxId].forEach((cmt, i) => {
+        elements.push(<Comment reduxId={reduxId} reduxCommentId={i} comment={cmt} />);
+      });
+    }
 
-    return str;
+    setCommentElements([...elements]);
   };
 
   return (
@@ -93,7 +99,7 @@ const Book = props => {
           <h4 className="title">{book.title}</h4>
           <p className="Comments">{book.author}</p>
           <ul className="links">
-            <li className="Comments" onClick={showComments} onKeyDown={comments}>Comments</li>
+            <li className="Comments" onClick={showComments} onKeyDown={showComments}>Comments</li>
             <li className="Comments" onClick={handleDelete} onKeyPress={handleDelete}>Remove</li>
             <li className="Comments" onClick={toggleHide} onKeyDown={toggleHide}>Edit</li>
           </ul>
@@ -156,7 +162,7 @@ const Book = props => {
       </div>
       <div className={`book-comments ${hideComments ? 'hide' : ''}`}>
         <div role="button" tabIndex="0" className="close" onClick={toggleComments} onKeyDown={toggleComments}>x</div>
-        {comments.length > 0 ? showComments() : 'No comments for now...'}
+        {commentElements}
       </div>
       <div className={hide ? 'hide' : ''}>
         <div role="button" tabIndex="0" className="close" onClick={toggleHide} onKeyDown={toggleHide}>x</div>
@@ -188,7 +194,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => ({
   changeBook: data => dispatch(updateBook(data)),
   deleteBook: data => dispatch(removeBook(data)),
-  getComments: id => dispatch(retrieveComments(id)),
+  getComments: data => dispatch(retrieveComments(data)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Book);

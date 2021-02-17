@@ -18,8 +18,10 @@ import displayErrors, { div } from '../helpers/helpers';
 const App = () => {
   const [id, setId] = useState(localStorage.getItem('bookStoreUserId'));
   const errors = useSelector(state => state.books.error);
+  const errorComments = useSelector(state => state.comments.error);
   const status = useSelector(state => state.books.status);
   const books = useSelector(state => state.books);
+  const statusComments = useSelector(state => state.comments.status);
   const dispatch = useDispatch();
   useEffect(() => {
     const loading = div('.loading');
@@ -27,7 +29,8 @@ const App = () => {
     if (status === 'loading'
     || status === 'Uploading'
     || status === 'Updating Book'
-    || status === 'Pending Deletion Book') {
+    || status === 'Pending Deletion Book'
+    || statusComments === 'pending') {
       loading.classList.remove('hide');
     } else {
       loading.classList.add('hide');
@@ -38,6 +41,17 @@ const App = () => {
         displayErrors(errors, '#ErrorHeader');
       } else {
         displayErrors(errors, '.Error');
+      }
+    } else {
+      errorDiv.classList.remove('display-error');
+    }
+
+    if (errorComments) {
+      errorDiv.classList += ' display-error';
+      if (id) {
+        displayErrors(errorComments, '#ErrorHeader');
+      } else {
+        displayErrors(errorComments, '.Error');
       }
     } else {
       errorDiv.classList.remove('display-error');

@@ -19,13 +19,19 @@ const comments = createSlice({
   extraReducers: {
     [retrieveComments.pending]: state => { state.status = 'pending'; },
     [retrieveComments.fulfilled]: (state, action) => {
-      if (action.payload.status === '404') {
+      console.log(action.payload);
+      if (Array.isArray(action.payload.response)) {
+        const newArr = [...state.comments];
+        newArr[action.payload.reduxId] = action.payload.response;
+        state.comments = newArr;
+        state.status = 'Success retrieve';
+        state.error = null;
+      } else if (action.payload.response.status === 404) {
         state.status = 'failed retrieve';
         state.error = action.payload;
       } else {
-        state.comments = action.payload;
-        state.status = 'Comments retrieved';
-        state.error = null;
+        state.status = 'failed retrieve';
+        state.error = JSON.stringify(action.payload.response);
       }
     },
     [retrieveComments.rejected]: (state, action) => {

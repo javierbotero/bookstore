@@ -10,18 +10,36 @@ const setCategory = filter => ({
   },
 });
 
-const initCreator = (verb, data) => ({
-  method: verb,
-  mode: 'cors',
-  cache: 'no-cache',
-  credentials: 'same-origin',
-  headers: {
-    'Content-Type': 'application/json',
-  },
-  redirect: 'follow',
-  referrerPolicy: 'no-referrer',
-  body: JSON.stringify(data),
-});
+const initCreator = (verb, data = null) => {
+  let result;
+  if (data) {
+    result = {
+      method: verb,
+      mode: 'cors',
+      cache: 'no-cache',
+      credentials: 'same-origin',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      redirect: 'follow',
+      referrerPolicy: 'no-referrer',
+      body: JSON.stringify(data),
+    };
+  } else {
+    result = {
+      method: verb,
+      mode: 'cors',
+      cache: 'no-cache',
+      credentials: 'same-origin',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      redirect: 'follow',
+      referrerPolicy: 'no-referrer',
+    };
+  }
+  return result;
+};
 
 const createBook = createAsyncThunk('create', async ({
   book, id,
@@ -51,19 +69,19 @@ const updateBook = createAsyncThunk('update-book', async data => {
 });
 
 const removeBook = createAsyncThunk('remove-book', async data => {
-  const init = initCreator('DELETE', {});
+  const init = initCreator('DELETE');
   const response = await fetch(`${URL}books/${data.id}`, init)
     .then(data => data.json())
     .catch(error => error.json());
   return { reduxId: data.reduxId, response };
 });
 
-const retrieveComments = createAsyncThunk('retrieve-comments', async id => {
-  const init = initCreator('POST', {});
-  const response = await fetch(`${URL}comments/${id}`, init)
+const retrieveComments = createAsyncThunk('retrieve-comments', async data => {
+  const init = initCreator('GET');
+  const response = await fetch(`${URL}comments/${data.id}`, init)
     .then(data => data.json())
-    .catch(error => error.json());
-  return response;
+    .catch(error => error);
+  return { reduxId: data.reduxId, response };
 });
 
 const createComment = createAsyncThunk('create-comment', async data => {
@@ -83,7 +101,7 @@ const updateComment = createAsyncThunk('update-comment', async data => {
 });
 
 const destroyComment = createAsyncThunk('destroy-comment', async data => {
-  const init = initCreator('DELETE', {});
+  const init = initCreator('DELETE');
   const response = fetch(`${URL}comments/${data.id}`, init)
     .then(data => data.json())
     .then(error => error.json());

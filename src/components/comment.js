@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import PropTypes from 'prop-types';
 import { destroyComment } from '../actions/index';
 
 const Comment = props => {
@@ -36,7 +37,7 @@ const Comment = props => {
         <li><button type="button" className="Comments" onClick={toggleHideForm} onKeyDown={toggleHideForm}>Update</button></li>
       </ul>
       <form className={`${hideForm ? 'hide' : ''}`} onSubmit={updateComment}>
-        <input type="text" value={body} onChange={updateContent} />
+        <input type="text" value={content} onChange={updateContent} />
         <input type="submit" value="submit" />
       </form>
     </div>
@@ -44,8 +45,9 @@ const Comment = props => {
 };
 
 Comment.propTypes = {
+  reduxId: PropTypes.number.isRequired,
   reduxCommentId: PropTypes.number.isRequired,
-  comment: 
+  comment: PropTypes.objectOf(PropTypes.string).isRequired,
 };
 
 export default Comment;
