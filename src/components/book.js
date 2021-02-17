@@ -160,9 +160,11 @@ const Book = props => {
           </form>
         </div>
       </div>
-      <div className={`book-comments ${hideComments ? 'hide' : ''}`}>
+      <div className={`book-comments layout ${hideComments ? 'hide' : ''}`}>
         <div role="button" tabIndex="0" className="close" onClick={toggleComments} onKeyDown={toggleComments}>x</div>
-        {commentElements}
+        <div className="list-comments">
+          {commentElements.length > 0 ? commentElements : 'No comments'}
+        </div>
       </div>
       <div className={hide ? 'hide' : ''}>
         <div role="button" tabIndex="0" className="close" onClick={toggleHide} onKeyDown={toggleHide}>x</div>

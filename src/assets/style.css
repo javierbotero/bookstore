@@ -407,7 +407,10 @@ ul li.Comments {
   float: right;
   position: relative;
   right: 3em;
-  padding: 5px 13px;
+  padding: 1px 13px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border-radius: 50%;
   cursor: pointer;
 }
@@ -430,6 +433,17 @@ ul li.Comments {
   background-color: #0290ff;
   color: #fff;
   font: 1.5em 'Roboto Slab', serif;
+}
+
+.book-comments {
+  padding: 0.5em 0;
+  background-color: #0290ff;
+  color: #fff;
+  font: 1.5em 'Roboto Slab', serif;
+}
+
+.list-comments {
+  padding: 0.5em;
 }
 
 @media screen and (min-width: 500px) {
