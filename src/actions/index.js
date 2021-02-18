@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { URL } from '../constants/constants';
+import { URL, initCreator } from '../constants/constants';
 
 const CHANGE_FILTER = 'CHANGE_FILTER';
 
@@ -9,37 +9,6 @@ const setCategory = filter => ({
     filter,
   },
 });
-
-const initCreator = (verb, data = null) => {
-  let result;
-  if (data) {
-    result = {
-      method: verb,
-      mode: 'cors',
-      cache: 'no-cache',
-      credentials: 'same-origin',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      redirect: 'follow',
-      referrerPolicy: 'no-referrer',
-      body: JSON.stringify(data),
-    };
-  } else {
-    result = {
-      method: verb,
-      mode: 'cors',
-      cache: 'no-cache',
-      credentials: 'same-origin',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      redirect: 'follow',
-      referrerPolicy: 'no-referrer',
-    };
-  }
-  return result;
-};
 
 const createBook = createAsyncThunk('create', async ({
   book, id,
@@ -84,14 +53,6 @@ const retrieveComments = createAsyncThunk('retrieve-comments', async data => {
   return { reduxId: data.reduxId, response };
 });
 
-const createComment = createAsyncThunk('create-comment', async data => {
-  const init = initCreator('POST', data.item);
-  const response = await fetch(`${URL}comments`, init)
-    .then(data => data.json())
-    .then(error => error.json());
-  return { reduxId: data.reduxId, response };
-});
-
 const updateComment = createAsyncThunk('update-comment', async data => {
   const init = initCreator('PUT', data.item);
   const response = await fetch(`${URL}comments/${data.id}`, init)
@@ -117,7 +78,6 @@ export {
   updateBook,
   removeBook,
   retrieveComments,
-  createComment,
   updateComment,
   destroyComment,
 };

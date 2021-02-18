@@ -21,8 +21,39 @@ const displayErrors = (errors, myClass) => {
       str += errors;
     }
   }
-  divResult.innerHTML += str;
+  divResult.innerHTML = str;
+};
+
+const initCreator = (verb, data = null) => {
+  let result;
+  if (data) {
+    result = {
+      method: verb,
+      mode: 'cors',
+      cache: 'no-cache',
+      credentials: 'same-origin',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      redirect: 'follow',
+      referrerPolicy: 'no-referrer',
+      body: JSON.stringify(data),
+    };
+  } else {
+    result = {
+      method: verb,
+      mode: 'cors',
+      cache: 'no-cache',
+      credentials: 'same-origin',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      redirect: 'follow',
+      referrerPolicy: 'no-referrer',
+    };
+  }
+  return result;
 };
 
 export default displayErrors;
-export { div };
+export { div, initCreator };

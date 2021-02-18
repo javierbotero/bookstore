@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import React, { useState } from 'react';
-import { useSelector, connect } from 'react-redux';
+import { useSelector, connect, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import BookForm from '../containers/booksform';
 import Comment from './comment';
@@ -21,7 +21,7 @@ const Book = props => {
     deleteBook,
     getComments,
     comments,
-    sendToApiComment,
+    // sendToApiComment,
   } = props;
   const [hide, setHide] = useState(true);
   const [hideFormProgress, setHideFormProgress] = useState(true);
@@ -39,6 +39,7 @@ const Book = props => {
   const circumference = radius * 2 * Math.PI;
   const strCircumference = `${circumference} ${circumference}`;
   const completed = circumference - ((circumference / 100) * book.completed);
+  const dispatch = useDispatch();
   const sendProgress = async e => {
     e.preventDefault();
     const data = {
@@ -93,10 +94,10 @@ const Book = props => {
         body: e.target.querySelector('.send-input').value,
       },
     };
-    await sendToApiComment(data)
+    await dispatch(createComment(data))
       .then(data => {
         toggleFormAddComment();
-        e.target.value = '';
+        e.target.querySelector('.send-input').value = '';
         console.log(data);
         return data;
       })
@@ -209,7 +210,7 @@ Book.propTypes = {
   deleteBook: PropTypes.func.isRequired,
   getComments: PropTypes.func.isRequired,
   comments: PropTypes.node.isRequired,
-  sendToApiComment: PropTypes.func.isRequired,
+  // sendToApiComment: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => {
@@ -225,7 +226,7 @@ const mapDispatchToProps = dispatch => ({
   changeBook: data => dispatch(updateBook(data)),
   deleteBook: data => dispatch(removeBook(data)),
   getComments: data => dispatch(retrieveComments(data)),
-  sendToApiComment: data => dispatch(createComment(data)),
+  // sendToApiComment: data => dispatch(createComment(data)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Book);
