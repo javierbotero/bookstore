@@ -21,23 +21,21 @@ const comments = createSlice({
   reducers: {
     removeErrorComments: state => { state.error = null; },
     sendComment: (state, action) => {
+      console.log(action.payload);
       if (action.payload.response.body) {
         state.status = 'Comment created';
         const newArr = [...state.comments];
         newArr[action.payload.reduxId].push(action.payload.response);
         state.comments = newArr;
         state.error = null;
-      } else if (action.payload.response.status === 404) {
-        state.status = 'Failed creation comment';
-        state.error = action.payload.response;
       } else {
         state.status = 'Failed creation comment';
-        state.error = JSON.stringify(action.payload.response);
+        state.error = action.payload.response;
       }
     },
     sendCommentPending: state => { state.status = 'pending'; },
     sendCommentRejected: (state, action) => {
-      state.error = action.payload.response;
+      state.error = action.payload;
       state.status = 'Something wen wrong';
     },
   },
@@ -95,23 +93,32 @@ const {
   sendCommentRejected,
 } = comments.actions;
 
-const createComment = (data) => {
-  return (dispatch) => {
-    const init = initCreator('POST', `${URL}comments`);
-  } 
-};
-
-createAsyncThunk('create-comment', async data => {
-  console.log(data);
+const createComment = data => dispatch => {
+  dispatch(sendCommentPending());
   const init = initCreator('POST', data.item);
-  const response = await fetch(`${URL}comments`, init)
-    .then(data => data.json())
-    .catch(error => error.json());
-  console.log(response);
-  return { reduxId: data.reduxId, response };
-});
+  return fetch(`${URL}comments`, init)
+    .then(obj => {
+      console.log(obj);
+      const jsonData = obj.json().then(comment => {
+        console.log('inside createComment thunk, data.json(): ', comment);
+        dispatch(sendComment({
+          reduxId: data.reduxId,
+          response: comment,
+        }))
+          .catch(err => err);
+      });
+      return jsonData;
+    })
+    .catch(error => {
+      console.log('inside createComment fect catch with error: ', error);
+      const jsonData = error.json();
+      dispatch(sendCommentRejected(jsonData));
+      return jsonData;
+    });
+};
 
 export default comments.reducer;
 export {
   removeErrorComments,
+  createComment,
 };

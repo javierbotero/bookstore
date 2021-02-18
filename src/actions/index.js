@@ -1,5 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { URL, initCreator } from '../constants/constants';
+import { URL } from '../constants/constants';
+import { initCreator } from '../helpers/helpers';
 
 const CHANGE_FILTER = 'CHANGE_FILTER';
 

@@ -26,6 +26,7 @@ const App = () => {
   const statusComments = useSelector(state => state.comments.status);
   const dispatch = useDispatch();
   useEffect(() => {
+    console.log(statusComments);
     const loading = div('.loading');
     const errorDiv = div('.Error');
     if (status === 'loading'

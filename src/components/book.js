@@ -2,13 +2,13 @@
 import React, { useState } from 'react';
 import { useSelector, connect, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
+import { createComment } from '../reducers/comments';
 import BookForm from '../containers/booksform';
 import Comment from './comment';
 import {
   removeBook,
   updateBook,
   retrieveComments,
-  createComment,
 } from '../actions/index';
 import displayErrors, { div } from '../helpers/helpers';
 
@@ -94,7 +94,7 @@ const Book = props => {
         body: e.target.querySelector('.send-input').value,
       },
     };
-    await dispatch(createComment(data))
+    const responseCreateComment = await dispatch(createComment(data))
       .then(data => {
         toggleFormAddComment();
         e.target.querySelector('.send-input').value = '';
@@ -102,6 +102,7 @@ const Book = props => {
         return data;
       })
       .catch(err => err);
+    console.log(responseCreateComment);
   };
   const displayComments = () => {
     let result = 'No comments yet';
