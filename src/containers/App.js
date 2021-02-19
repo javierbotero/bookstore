@@ -22,8 +22,8 @@ const App = () => {
   const errors = useSelector(state => state.books.error);
   const errorComments = useSelector(state => state.comments.error);
   const status = useSelector(state => state.books.status);
-  const books = useSelector(state => state.books);
   const statusComments = useSelector(state => state.comments.status);
+  const books = useSelector(state => state.books);
   const dispatch = useDispatch();
   useEffect(() => {
     const loading = div('.loading');
@@ -74,7 +74,7 @@ const App = () => {
       });
       localStorage.setItem('booksStoredNotFirstTime', true);
     }
-  }, [books, URL, id]);
+  }, [books, URL, id, status, errorComments, statusComments]);
 
   if (parseInt(id, 10)) {
     return (

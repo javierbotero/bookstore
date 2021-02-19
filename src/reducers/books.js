@@ -24,7 +24,7 @@ const books = createSlice({
       state.status = 'loading';
     },
     [retrieveBooks.fulfilled]: (state, action) => {
-      if (action.payload.status === 404) {
+      if (action.payload.status) {
         state.status = 'failed';
         state.error = action.payload;
       } else {

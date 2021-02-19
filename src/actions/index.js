@@ -88,7 +88,7 @@ const createComment = createAsyncThunk('create-comment', async data => {
   const init = initCreator('POST', data.item);
   const response = await fetch(`${URL}comments`, init)
     .then(data => data.json())
-    .then(error => error.json());
+    .catch(error => error.json());
   return { reduxId: data.reduxId, response };
 });
 
