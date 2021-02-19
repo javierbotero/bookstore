@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import {
   retrieveComments,
   createComment,
-  // updateComment,
+  updateComment,
   // destroyComment,
 } from '../actions/index';
 
@@ -44,7 +44,6 @@ const comments = createSlice({
       state.status = 'pending';
     },
     [createComment.fulfilled]: (state, action) => {
-      console.log(state, action);
       if (action.payload.response.body) {
         state.status = 'Fullfilled';
         state.comments[action.payload.reduxId].push(action.payload.response);
@@ -55,9 +54,24 @@ const comments = createSlice({
       }
     },
     [createComment.rejected]: (state, action) => {
-      console.log(action);
       state.status = 'Rejected';
       state.error = `Something went wrong, please notify us with this error: ${action.payload}`;
+    },
+    [updateComment.pending]: state => { state.status = 'pending'; },
+    [updateComment.fulfilled]: (state, action) => {
+      if (action.payload.response.body) {
+        state.status = 'Success';
+        // eslint-disable-next-line max-len
+        state.comments[action.payload.reduxId][action.payload.reduxCommentId] = action.payload.response;
+        state.error = null;
+      } else {
+        state.status = 'failed';
+        state.error = action.payload.response;
+      }
+    },
+    [updateComment.rejected]: (state, action) => {
+      state.status = 'failed';
+      state.error = action.payload.response;
     },
   },
 });

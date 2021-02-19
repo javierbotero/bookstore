@@ -93,11 +93,11 @@ const createComment = createAsyncThunk('create-comment', async data => {
 });
 
 const updateComment = createAsyncThunk('update-comment', async data => {
-  const init = initCreator('PUT', data.item);
-  const response = await fetch(`${URL}comments/${data.id}`, init)
+  const init = initCreator('PUT', { body: data.item.body });
+  const response = await fetch(`${URL}comments/${data.item.id}`, init)
     .then(data => data.json())
     .then(error => error.json());
-  return { reduxId: data.reduxId, response };
+  return { reduxId: data.reduxId, reduxCommentId: data.reduxCommentId, response };
 });
 
 const destroyComment = createAsyncThunk('destroy-comment', async data => {

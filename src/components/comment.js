@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
-import { destroyComment } from '../actions/index';
+import { destroyComment, updateComment } from '../actions/index';
 
 const Comment = props => {
   const { reduxId, reduxCommentId, comment } = props;
@@ -23,8 +23,20 @@ const Comment = props => {
     setContent(e.target.value);
   };
 
-  const updateComment = () => {
-
+  const sendUpdateComment = () => {
+    dispatch(updateComment({
+      reduxId,
+      reduxCommentId,
+      item: {
+        body: content,
+        id: comment.id,
+      },
+    }))
+      .then(resp => {
+        setHideForm(true);
+        return resp;
+      })
+      .catch(err => err);
   };
 
   return (
@@ -36,7 +48,7 @@ const Comment = props => {
         <li><button type="button" className="Comments" onClick={deleteComment} onKeyDown={deleteComment}>Delete</button></li>
         <li><button type="button" className="Comments" onClick={toggleHideForm} onKeyDown={toggleHideForm}>Update</button></li>
       </ul>
-      <form className={`${hideForm ? 'hide' : ''}`} onSubmit={updateComment}>
+      <form className={`${hideForm ? 'hide' : ''}`} onSubmit={sendUpdateComment}>
         <input type="text" value={content} onChange={updateContent} />
         <input type="submit" value="submit" />
       </form>
