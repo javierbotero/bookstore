@@ -9,12 +9,13 @@ const Comment = props => {
   const [content, setContent] = useState(comment.body);
   const dispatch = useDispatch();
 
-  const deleteComment = async () => {
-    await dispatch(destroyComment({
+  const deleteComment = e => {
+    dispatch(destroyComment({
       id: comment.id,
       reduxId,
       reduxCommentId,
     }));
+    e.preventDefault();
   };
 
   const toggleHideForm = () => { setHideForm(!hideForm); };

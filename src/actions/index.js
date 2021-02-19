@@ -102,9 +102,10 @@ const updateComment = createAsyncThunk('update-comment', async data => {
 
 const destroyComment = createAsyncThunk('destroy-comment', async data => {
   const init = initCreator('DELETE');
-  const response = fetch(`${URL}comments/${data.id}`, init)
+  const response = await fetch(`${URL}comments/${data.id}`, init)
     .then(data => data.json())
-    .then(error => error.json());
+    .catch(error => error.json());
+
   return { reduxId: data.reduxId, reduxCommentId: data.reduxCommentId, response };
 });
 

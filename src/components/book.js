@@ -97,7 +97,6 @@ const Book = props => {
       .then(data => {
         toggleFormAddComment();
         e.target.value = '';
-        console.log(data);
         return data;
       })
       .catch(err => err);

@@ -4,7 +4,7 @@ import {
   retrieveComments,
   createComment,
   updateComment,
-  // destroyComment,
+  destroyComment,
 } from '../actions/index';
 
 const initialState = {
@@ -72,6 +72,22 @@ const comments = createSlice({
     [updateComment.rejected]: (state, action) => {
       state.status = 'failed';
       state.error = action.payload.response;
+    },
+    [destroyComment.pending]: state => { state.status = 'pending'; },
+    [destroyComment.fulfilled]: (state, action) => {
+      if (action.payload.response.data === 'Comment destroyed') {
+        state.comments[action.payload.reduxId].splice(action.payload.reduxCommentId, 1);
+        state.status = 'Success';
+        state.error = null;
+      } else {
+        state.error = action.payload.response;
+        state.status = 'failed';
+      }
+    },
+    [destroyComment.rejected]: (state, action) => {
+      console.log(action);
+      state.error = action.payload.response;
+      state.status = 'failed';
     },
   },
 });
