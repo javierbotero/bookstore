@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useSelector, connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import BookForm from '../containers/booksform';
@@ -39,11 +39,6 @@ const Book = props => {
   const circumference = radius * 2 * Math.PI;
   const strCircumference = `${circumference} ${circumference}`;
   const completed = circumference - ((circumference / 100) * book.completed);
-  useEffect(() => {
-    if (error) {
-      displayErrors(error, '.ErrorProgress');
-    }
-  }, [error]);
   const sendProgress = async e => {
     e.preventDefault();
     if (progress < 0 || progress > 100) {
@@ -186,7 +181,9 @@ const Book = props => {
           <h5 className="Current-Chapter ">CURRENT CHAPTER</h5>
           <p className="Current-Lesson">Introduction</p>
           <button type="button" className="Rectangle-2" onClick={toogleHideFormProgress}><span className="Update-progress">UPDATE PROGRESS</span></button>
-          <div className={`ErrorProgress ${error ? '' : 'hide'}`} style={{ backgroundColor: 'red', color: 'white' }} />
+          <div className={`ErrorProgress ${error ? '' : 'hide'}`} style={{ backgroundColor: 'red', color: 'white' }}>
+            {error}
+          </div>
           <form className={`updateProgress ${hideFormProgress ? 'hide' : ''}`} onSubmit={sendProgress}>
             <input type="text" value={progress} onChange={updateProgress} />
             <input className="Rectangle-2 Update-progress" type="submit" value="Send" />
