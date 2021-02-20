@@ -454,6 +454,36 @@ ul li.Comments {
   margin: 0 auto;
 }
 
+.FormComment {
+  flex-direction: row;
+}
+
+.send-input {
+  width: 90%;
+}
+
+.new-comment-submit {
+  width: 50%;
+}
+
+.start-menu {
+  text-align: center;
+  padding: 2em;
+  font: 1em 'Roboto Slab', serif;
+  color: #121212;
+}
+
+.start-menu form {
+  flex-direction: column;
+}
+
+.start-menu form input {
+  margin: 1em 0;
+  width: 100%;
+  padding: 1em;
+  font: 1em 'Roboto Slab', serif;
+}
+
 @media screen and (min-width: 500px) {
   .book-container,
   .flex-x,

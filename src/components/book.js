@@ -47,7 +47,7 @@ const Book = props => {
   const sendProgress = async e => {
     e.preventDefault();
     if (progress < 0 || progress > 100) {
-      await setError('This value is not valid for the progress of your reading :(');
+      setError('This value is not valid for the progress of your reading :(');
     } else {
       setError(false);
       const data = {
@@ -186,8 +186,8 @@ const Book = props => {
           <h5 className="Current-Chapter ">CURRENT CHAPTER</h5>
           <p className="Current-Lesson">Introduction</p>
           <button type="button" className="Rectangle-2" onClick={toogleHideFormProgress}><span className="Update-progress">UPDATE PROGRESS</span></button>
+          <div className={`ErrorProgress ${error ? '' : 'hide'}`} style={{ backgroundColor: 'red', color: 'white' }} />
           <form className={`updateProgress ${hideFormProgress ? 'hide' : ''}`} onSubmit={sendProgress}>
-            <div className={`ErrorProgress ${error ? '' : 'hide'}`} />
             <input type="text" value={progress} onChange={updateProgress} />
             <input className="Rectangle-2 Update-progress" type="submit" value="Send" />
           </form>
@@ -197,9 +197,9 @@ const Book = props => {
         <div role="button" tabIndex="0" className="close" onClick={toggleComments} onKeyDown={toggleComments}>x</div>
         <div className="list-comments">{displayComments()}</div>
         <button className="Rectangle-2 add-comment" type="button" onClick={toggleFormAddComment}>Add a comment</button>
-        <form className={`${hideFormAddComment ? 'hide' : ''}`} onSubmit={sendNewComment}>
+        <form className={`FormComment ${hideFormAddComment ? 'hide' : ''}`} onSubmit={sendNewComment}>
           <input type="text" className="send-input" placeholder="Write your comment..." />
-          <input type="submit" value="submit" />
+          <input type="submit" value="submit" className="new-comment-submit" />
         </form>
       </div>
       <div className={hide ? 'hide' : ''}>

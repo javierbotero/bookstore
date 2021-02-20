@@ -49,9 +49,9 @@ const App = () => {
       }
       removeError();
       removeErrorComments();
-    } else {
+    } else if (id) {
       errorDiv.classList.remove('display-error');
-      div('#ErrorHeader').innerHTMl = '';
+      div('#ErrorHeader').innerHTML = '';
       div('.Error').innerHTMl = '';
     }
 

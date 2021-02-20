@@ -35,13 +35,13 @@ const Form = props => {
     <form onSubmit={handleLoggin}>
       <div>
         <label htmlFor="email">
-          Email
+          <div>Email</div>
           <input type="text" id="email" name="email" />
         </label>
       </div>
       <div>
         <label htmlFor="password">
-          Password
+          <div>Password</div>
           <input type="text" id="password" name="password" />
         </label>
       </div>

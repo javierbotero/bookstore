@@ -32,16 +32,18 @@ const Loggin = props => {
       </nav>
       <div className="Error logginError" />
       <div className="loading">Loading... the dyno is just waking up :)</div>
-      <Switch>
-        <Route exact path="/">
-          <p className="title">Sign in</p>
-          <Form verb="POST" url={`${URL}loggin`} setId={setId} />
-        </Route>
-        <Route exact path="/signup">
-          <p className="title">Create an Account</p>
-          <Form verb="POST" url={`${URL}users`} setId={setId} />
-        </Route>
-      </Switch>
+      <div className="start-menu">
+        <Switch>
+          <Route exact path="/">
+            <p className="title">Sign in</p>
+            <Form verb="POST" url={`${URL}loggin`} setId={setId} />
+          </Route>
+          <Route exact path="/signup">
+            <p className="title">Create an Account</p>
+            <Form verb="POST" url={`${URL}users`} setId={setId} />
+          </Route>
+        </Switch>
+      </div>
     </BrowserRouter>
   );
 };
