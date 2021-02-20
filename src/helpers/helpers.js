@@ -21,7 +21,7 @@ const displayErrors = (errors, myClass) => {
       str += errors;
     }
   }
-  divResult.innerHTML += str;
+  divResult.innerHTML = str;
 };
 
 export default displayErrors;
