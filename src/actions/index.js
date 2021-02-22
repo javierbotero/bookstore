@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { URL } from '../constants/constants';
+import { URL, TOKEN } from '../constants/constants';
 
 const CHANGE_FILTER = 'CHANGE_FILTER';
 
@@ -18,9 +18,10 @@ const initCreator = (verb, data = null) => {
       mode: 'cors',
       cache: 'no-cache',
       credentials: 'same-origin',
-      headers: {
+      headers: new Headers({
         'Content-Type': 'application/json',
-      },
+        Authorization: `Token token=${TOKEN}`,
+      }),
       redirect: 'follow',
       referrerPolicy: 'no-referrer',
       body: JSON.stringify(data),
@@ -31,9 +32,10 @@ const initCreator = (verb, data = null) => {
       mode: 'cors',
       cache: 'no-cache',
       credentials: 'same-origin',
-      headers: {
+      headers: new Headers({
         'Content-Type': 'application/json',
-      },
+        Authorization: `Token token=${TOKEN}`,
+      }),
       redirect: 'follow',
       referrerPolicy: 'no-referrer',
     };

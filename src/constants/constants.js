@@ -14,7 +14,7 @@ const DEFAULT_BOOKS = [
   {
     title: 'A Hundred Years of Solitude',
     category: FILTERS.biography,
-    author: 'Grabriel García Marquez',
+    author: 'Gabriel García Marquez',
     completed: 70,
   },
   {
@@ -32,7 +32,8 @@ const DEFAULT_BOOKS = [
 ];
 const CATEGORIES = ['Action', 'Biography', 'History', 'Horror', 'Kids', 'Learning', 'Sci-Fi'];
 const URL = 'http://localhost:3000/';
+const TOKEN = process.env.REACT_APP_TOKEN_BOOKS;
 
 export {
-  FILTERS, CATEGORIES, URL, DEFAULT_BOOKS,
+  FILTERS, CATEGORIES, URL, DEFAULT_BOOKS, TOKEN,
 };
