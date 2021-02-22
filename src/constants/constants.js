@@ -31,7 +31,7 @@ const DEFAULT_BOOKS = [
   },
 ];
 const CATEGORIES = ['Action', 'Biography', 'History', 'Horror', 'Kids', 'Learning', 'Sci-Fi'];
-const URL = 'http://localhost:3000/';
+const URL = 'https://secret-sands-47099.herokuapp.com/';
 const TOKEN = process.env.REACT_APP_TOKEN_BOOKS;
 
 export {
