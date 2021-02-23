@@ -136,6 +136,19 @@ button {
   align-items: center;
 }
 
+.links li {
+  margin-right: 10px;
+}
+
+.links li button {
+  background-color: #fff;
+  color: #0290ff;
+  width: 100%;
+  margin: 0 auto;
+  font-weight: bold;
+  border: 0;
+}
+
 .menu li {
   display: inline-block;
 }
@@ -482,6 +495,11 @@ ul li.Comments {
   width: 100%;
   padding: 1em;
   font: 1em 'Roboto Slab', serif;
+}
+
+.comment-component {
+  border-bottom: 2px dotted #83a3c3;
+  padding: 10px 0;
 }
 
 @media screen and (min-width: 500px) {

@@ -41,7 +41,7 @@ const Comment = props => {
   };
 
   return (
-    <div>
+    <div className="comment-component">
       <div>
         {content}
       </div>
