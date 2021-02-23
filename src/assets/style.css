@@ -136,6 +136,19 @@ button {
   align-items: center;
 }
 
+.links li {
+  margin-right: 10px;
+}
+
+.links li button {
+  background-color: #fff;
+  color: #0290ff;
+  width: 100%;
+  margin: 0 auto;
+  font-weight: bold;
+  border: 0;
+}
+
 .menu li {
   display: inline-block;
 }
@@ -163,6 +176,10 @@ button {
   line-height: normal;
   letter-spacing: 1.9px;
   color: #121212;
+}
+
+.books a:active {
+  color: #888;
 }
 
 .book-container {
@@ -281,6 +298,10 @@ p.Comments {
   padding: 0;
 }
 
+ul li.Comments {
+  cursor: pointer;
+}
+
 .title {
   width: 197px;
   margin: 3px 0;
@@ -385,6 +406,100 @@ p.Comments {
   width: 90%;
   margin: 0 auto;
   display: flex;
+}
+
+.hide {
+  display: none;
+}
+
+.close {
+  color: #2990ff;
+  font-size: 1.5em;
+  font-family: 'Monserrat', serif;
+  background-color: #fff;
+  float: right;
+  position: relative;
+  right: 3em;
+  padding: 1px 13px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.close:hover {
+  background-color: #0290ff;
+  color: #fff;
+}
+
+.loading {
+  position: absolute;
+  left: 10%;
+  z-index: 1;
+  text-align: center;
+  padding-top: 3em;
+  width: 80%;
+  height: 15%;
+  margin: 37px auto;
+  border-radius: 4px;
+  background-color: #0290ff;
+  color: #fff;
+  font: 1.5em 'Roboto Slab', serif;
+}
+
+.book-comments {
+  padding: 0.5em 0;
+  background-color: #0290ff;
+  color: #fff;
+  font: 1.5em 'Roboto Slab', serif;
+  text-align: center;
+}
+
+.list-comments {
+  padding: 0.5em;
+}
+
+.add-comment {
+  background-color: #fff;
+  color: #0290ff;
+  width: 50%;
+  margin: 0 auto;
+}
+
+.FormComment {
+  flex-direction: row;
+}
+
+.send-input {
+  width: 90%;
+}
+
+.new-comment-submit {
+  width: 50%;
+}
+
+.start-menu {
+  text-align: center;
+  padding: 2em;
+  font: 1em 'Roboto Slab', serif;
+  color: #121212;
+}
+
+.start-menu form {
+  flex-direction: column;
+}
+
+.start-menu form input {
+  margin: 1em 0;
+  width: 100%;
+  padding: 1em;
+  font: 1em 'Roboto Slab', serif;
+}
+
+.comment-component {
+  border-bottom: 2px dotted #83a3c3;
+  padding: 10px 0;
 }
 
 @media screen and (min-width: 500px) {

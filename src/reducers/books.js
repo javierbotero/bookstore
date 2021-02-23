@@ -1,54 +1,97 @@
-import { v4 as uuidv4 } from 'uuid';
-import { CREATE_BOOK, REMOVE_BOOK } from '../actions/index';
-import { FILTERS } from '../constants/constants';
+/* eslint-disable no-param-reassign */
+import { createSlice } from '@reduxjs/toolkit';
+import {
+  retrieveBooks,
+  createBook,
+  updateBook,
+  removeBook,
+} from '../actions/index';
 
-const initialState = [
-  {
-    title: 'A Hundred Years of Solitude',
-    category: FILTERS.biography,
-    id: uuidv4(),
-    completed: 70,
-  },
-  {
-    title: 'The Iliad',
-    category: FILTERS.history,
-    id: uuidv4(),
-    completed: 70,
-  },
-  {
-    title: 'The Shining',
-    category: FILTERS.horror,
-    id: uuidv4(),
-    completed: 70,
-  },
-  {
-    title: 'The Little Prince',
-    category: FILTERS.kids,
-    id: uuidv4(),
-    completed: 70,
-  },
-  {
-    title: 'The Invation',
-    category: FILTERS.scifi,
-    id: uuidv4(),
-    completed: 70,
-  },
-];
-
-const books = (state = initialState, action) => {
-  switch (action.type) {
-    case CREATE_BOOK:
-      return [...state, {
-        title: action.payload.title,
-        category: action.payload.category,
-        id: action.payload.id,
-        completed: 0,
-      }];
-    case REMOVE_BOOK:
-      return [...action.payload.newBooks];
-    default:
-      return state;
-  }
+const initialState = {
+  books: [],
+  status: 'idle',
+  error: null,
 };
 
-export default books;
+const books = createSlice({
+  name: 'books',
+  initialState,
+  reducers: {
+    removeError: state => { state.error = null; },
+  },
+  extraReducers: {
+    [retrieveBooks.pending]: state => {
+      state.status = 'loading';
+    },
+    [retrieveBooks.fulfilled]: (state, action) => {
+      if (action.payload.status) {
+        state.status = 'failed';
+        state.error = action.payload;
+      } else {
+        state.status = 'succeded';
+        state.books = action.payload;
+        state.error = null;
+      }
+    },
+    [retrieveBooks.rejected]: (state, action) => {
+      state.status = 'failed';
+      state.error = action.payload;
+    },
+    [createBook.pending]: state => {
+      state.status = 'Uploading';
+    },
+    [createBook.fulfilled]: (state, action) => {
+      if (action.payload.title) {
+        state.status = 'Book Uploaded';
+        state.books.push(action.payload);
+        state.error = null;
+      } else {
+        state.status = 'failed';
+        state.error = action.payload;
+      }
+    },
+    [createBook.rejected]: (state, action) => {
+      state.status = 'failed';
+      state.error = action.payload;
+    },
+    [updateBook.pending]: state => {
+      state.status = 'Updating Book';
+    },
+    [updateBook.fulfilled]: (state, action) => {
+      if (!action.payload.response.title) {
+        state.status = 'failed';
+        state.error = action.payload.response;
+      } else {
+        state.status = 'Book Updated';
+        const newArr = [...state.books];
+        newArr[action.payload.reduxId] = action.payload.response;
+        state.books = newArr;
+        state.error = null;
+      }
+    },
+    [updateBook.rejected]: (state, action) => {
+      state.status = 'failed';
+      state.error = action.payload.response;
+    },
+    [removeBook.pending]: state => { state.status = 'Pending Deletion Book'; },
+    [removeBook.fulfilled]: (state, action) => {
+      if (action.payload.response.data === 'Book destroyed') {
+        state.books.splice(action.payload.reduxId, 1);
+        state.status = 'Book Deleted';
+        state.error = null;
+      } else {
+        state.status = 'Failed deletion book';
+        state.error = action.payload.response;
+      }
+    },
+    [removeBook.rejected]: (state, action) => {
+      state.status = 'failed removing book';
+      state.error = action.payload.response;
+    },
+  },
+});
+
+const { removeError } = books.actions;
+
+export default books.reducer;
+export { removeError };

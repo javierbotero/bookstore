@@ -5,10 +5,14 @@ import Book from './book';
 import { removeBook } from '../actions/index';
 
 const All = props => {
-  const { books, delBook } = props;
+  const {
+    books, delBook, id,
+  } = props;
   const result = [];
-  books.filter(
-    (book, i) => result.push(<Book key={book.id} delBook={() => delBook(i)} book={book} />),
+  books.books.filter(
+    (book, i) => result.push(
+      <Book key={book.id} reduxId={i} delBook={delBook} book={book} id={id} />,
+    ),
   );
   return (
     <div>
@@ -20,6 +24,7 @@ const All = props => {
 All.propTypes = {
   books: PropTypes.objectOf(PropTypes.string).isRequired,
   delBook: PropTypes.func.isRequired,
+  id: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = state => ({

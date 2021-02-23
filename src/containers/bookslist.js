@@ -2,14 +2,14 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { removeBook, setCategory } from '../actions/index';
+import { setCategory, removeBook } from '../actions/index';
 import Book from '../components/book';
 import { FILTERS } from '../constants/constants';
 import CategoryFilter from '../components/categoryFilter';
 
 const BooksList = props => {
   const {
-    handleRemoveBook, filterBooks, category, books,
+    handleRemoveBook, filterBooks, category, books, id,
   } = props;
   const [localFilter, setLocalFilter] = useState(category);
   const handleFilterChange = e => {
@@ -21,13 +21,29 @@ const BooksList = props => {
   const filteredBooks = () => {
     const result = [];
     if (localFilter === FILTERS.all) {
-      books.forEach((item, i) => {
-        result.push(<Book key={item.id} book={item} delBook={() => handleRemoveBook(i)} />);
+      books.books.forEach((item, i) => {
+        result.push(
+          <Book
+            key={item.id}
+            book={item}
+            delBook={() => handleRemoveBook(i)}
+            id={id}
+            reduxId={i}
+          />,
+        );
       });
     } else {
-      books.forEach((item, i) => {
+      books.books.forEach((item, i) => {
         if (item.category === localFilter) {
-          result.push(<Book key={item.id} book={item} delBook={() => handleRemoveBook(i)} />);
+          result.push(
+            <Book
+              key={item.id}
+              book={item}
+              delBook={() => handleRemoveBook(i)}
+              id={id}
+              reduxId={i}
+            />,
+          );
         }
       });
     }
@@ -50,6 +66,7 @@ BooksList.propTypes = {
   handleRemoveBook: PropTypes.func.isRequired,
   category: PropTypes.string.isRequired,
   books: PropTypes.arrayOf(PropTypes.object).isRequired,
+  id: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = state => {
