@@ -4,7 +4,7 @@ It is a bookstore app that organizes and stores books based on categories. It is
 
 ## Live Preview
 
-[See the Book Store Online App](https://javier-bookstore.herokuapp.com/)
+[See the Book Store Online App](https://bookstore-javier.netlify.app/)
 
 ![Screenshot Bookstore](./src/assets/images/bookstore.png)
 
