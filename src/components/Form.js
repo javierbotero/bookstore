@@ -5,6 +5,8 @@ import displayErrors, { div } from '../helpers/helpers';
 const Form = props => {
   const { url, verb, setId } = props;
   const handleLoggin = async e => {
+    const loadingDiv = div('.loading');
+    loadingDiv.classList.remove('hide');
     e.preventDefault();
     const data = {
       email: document.getElementById('email').value,
@@ -15,6 +17,7 @@ const Form = props => {
     const user = await fetch(url, initCreator(verb, data))
       .then(data => {
         response = data;
+        loadingDiv.classList.add('hide');
         return data.json();
       })
       .catch(error => error);
