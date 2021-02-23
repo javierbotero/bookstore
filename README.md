@@ -1,6 +1,6 @@
 # Bookstore CMS
 
-It is a bookstore app that organizes and stores books based on categories. It is built with Javascript React & Redux frameworks getting a dynamic and responsive app.
+It is a bookstore app that organizes and stores books based on categories. It is built with Javascript, React, Redux and, Ruby on Rails that build a responsive and dynamic app, If you want to take a look to the rails API repo you can find it [here](https://github.com/javierbotero/API-bookstore).
 
 ## Live Preview
 
