@@ -85,7 +85,6 @@ const comments = createSlice({
       }
     },
     [destroyComment.rejected]: (state, action) => {
-      console.log(action);
       state.error = action.payload.response;
       state.status = 'failed';
     },
