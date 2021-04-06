@@ -1,12 +1,12 @@
-# Calculator App
+# Bookstore CMS
 
-This is a bookstore fictional app where books are organized and manage based on categories. It is built with Javascript React & Redux frameworks getting a dynamic and responsive app.
+It is a bookstore app that organizes and stores books based on categories. It is built with Javascript, React, Redux and, Ruby on Rails that build a responsive and dynamic app, If you want to take a look to the rails API repo you can find it [here](https://github.com/javierbotero/API-bookstore).
 
 ## Live Preview
 
-[See the Book Store Online App]()
+[See the Book Store Online App](https://bookstore-javier.netlify.app/)
 
-![calculator app]()
+![Screenshot Bookstore](./src/assets/images/bookstore.png)
 
 ## Built With
 
@@ -34,7 +34,7 @@ in the terminal to install the dependencies.
 ```
   npm start
 ```
-And you will have the calculator in your local environment.
+And you will have the bookstore working locally.
 
 ## Authors
 
